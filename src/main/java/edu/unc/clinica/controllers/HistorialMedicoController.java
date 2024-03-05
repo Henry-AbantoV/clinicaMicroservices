@@ -1,3 +1,8 @@
+/*
+ * @file HistorialMedicoController.java;
+ * @Autor Henry AV (c)2024
+ * @Created 5 mar 2024,0:04:26
+ */
 package edu.unc.clinica.controllers;
 
 import java.util.HashMap;
@@ -30,6 +35,7 @@ import edu.unc.clinica.exceptions.IllegalOperationException;
 import edu.unc.clinica.services.HistorialService;
 import edu.unc.clinica.util.ApiResponse;
 
+// TODO: Auto-generated Javadoc
 /**
  * Controlador REST que maneja las operaciones relacionadas con los historiales médicos.
  */
@@ -37,9 +43,12 @@ import edu.unc.clinica.util.ApiResponse;
 @RequestMapping(value = "api/v1/historial", headers = "Api-Version=1")
 public class HistorialMedicoController {
 	
+    /** The historial S. */
     // Inyección de dependencias de los servicios necesarios
 	@Autowired
 	private HistorialService historialS;
+	
+	/** The model mapper. */
 	@Autowired
 	private ModelMapper modelMapper;
 

@@ -1,3 +1,8 @@
+/*
+ * @file FacturaController.java;
+ * @Autor Henry AV (c)2024
+ * @Created 5 mar 2024,0:04:36
+ */
 package edu.unc.clinica.controllers;
 
 import java.util.HashMap;
@@ -31,13 +36,15 @@ import edu.unc.clinica.services.CitaService;
 import edu.unc.clinica.services.FacturaService;
 import edu.unc.clinica.util.ApiResponse;
 
+// TODO: Auto-generated Javadoc
 /**
- * Controlador REST que maneja las operaciones relacionadas con las facturas
+ * Controlador REST que maneja las operaciones relacionadas con las facturas.
  */
 @RestController
 @RequestMapping(value="api/v1/facturas", headers = "Api-Version=1")
 public class FacturaController {
 
+	/** The factura S. */
 	@Autowired
 	private FacturaService facturaS;
 	
@@ -67,10 +74,12 @@ public class FacturaController {
 	    }
 	    
 	    /**
-	     * Maneja las solicitudes GET para obtener una factura por su ID.
-	     * @param id El ID de la factura.
-	     * @return ResponseEntity con la FacturaDTO correspondiente al ID o un mensaje de error si no se encuentra la factura.
-	     */
+    	 * Maneja las solicitudes GET para obtener una factura por su ID.
+    	 *
+    	 * @param id El ID de la factura.
+    	 * @return ResponseEntity con la FacturaDTO correspondiente al ID o un mensaje de error si no se encuentra la factura.
+    	 * @throws EntityNotFoundException the entity not found exception
+    	 */
 	   
 	    @GetMapping("/{id}")
 	    public ResponseEntity<?> obtenerFacturasPorId(@PathVariable Long id) throws EntityNotFoundException {
@@ -82,12 +91,15 @@ public class FacturaController {
 	            return ResponseEntity.ok(response);
 	            
 	    }
-	    /**
-	     * Maneja las solicitudes POST para guardar una nueva factura.
-	     * @param facturaDto La factura a guardar.
-	     * @return ResponseEntity con la FacturaDTO guardada en caso de éxito o un mensaje de error si falla la operación.
-	     * @throws IllegalOperationException Si ocurre una operación ilegal.
-	     */
+	    
+    	/**
+    	 * Maneja las solicitudes POST para guardar una nueva factura.
+    	 *
+    	 * @param facturaDto La factura a guardar.
+    	 * @param result the result
+    	 * @return ResponseEntity con la FacturaDTO guardada en caso de éxito o un mensaje de error si falla la operación.
+    	 * @throws IllegalOperationException Si ocurre una operación ilegal.
+    	 */
 	 
 	    @PostMapping
 	    public ResponseEntity<?> guardarFactura(@Valid @RequestBody FacturaDTO facturaDto, BindingResult result) throws IllegalOperationException {
@@ -140,7 +152,13 @@ public class FacturaController {
 	    	return ResponseEntity.status(HttpStatus.OK).body(response);
 	    }
 	    
-	    private ResponseEntity<Map<String, String>> validar(BindingResult result) {
+	    /**
+    	 * Validar.
+    	 *
+    	 * @param result the result
+    	 * @return the response entity
+    	 */
+    	private ResponseEntity<Map<String, String>> validar(BindingResult result) {
 	        Map<String, String> errores = new HashMap<>();
 	        result.getFieldErrors().forEach(err -> {
 	            errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
