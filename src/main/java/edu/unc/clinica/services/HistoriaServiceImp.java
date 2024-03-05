@@ -51,15 +51,7 @@ public class HistoriaServiceImp implements HistorialService {
 	@Override
 	@Transactional(readOnly=true)
 	public HistorialMedico buscarPorIdHistorial(Long idHistorial) throws EntityNotFoundException {
-<<<<<<< HEAD
-		
-		Optional<HistorialMedico> historial=historialR.findById(idHistorial);
-		if (historial.isEmpty())
-			throw new EntityNotFoundException("El historial medico con el id proporcionado no existe en la BD");
-		return historial.get();
-	}
 
-=======
 		Optional<HistorialMedico> historial=historialR.findById(idHistorial);
 		if(historial.isEmpty()) {
 			throw new EntityNotFoundException("El historial con el ID proporcionado no se encontró.");
@@ -82,7 +74,7 @@ public class HistoriaServiceImp implements HistorialService {
      * @return El historial médico guardado.
      * @throws IllegalOperationException Si se produce una operación ilegal al guardar el historial médico.
      */
->>>>>>> bba6c690139ed01e5b0d52af8e607992f572d4d0
+
 	@Override
 	@Transactional
 	public HistorialMedico grabarHistorial(HistorialMedico historial) throws IllegalOperationException {
@@ -118,11 +110,7 @@ public class HistoriaServiceImp implements HistorialService {
 	public HistorialMedico actualizarHistorial(Long idHistorial, HistorialMedico historial) throws EntityNotFoundException, IllegalOperationException{
 		Optional<HistorialMedico> historialEntity = historialR.findById(idHistorial);
 		if(historialEntity.isEmpty())
-<<<<<<< HEAD
-			throw new EntityNotFoundException("El id proporcionado no encontrado para actualizarlo");
-=======
-			throw new EntityNotFoundException("El historial con id proporcionado no ha sido encontrado");
->>>>>>> bba6c690139ed01e5b0d52af8e607992f572d4d0
+			throw new EntityNotFoundException("El historial medico con id proporcionado no fue encontrado");
 			
 		historial.setIdHistorialMedico(idHistorial);		
 		return historialR.save(historial);		
@@ -143,17 +131,10 @@ public class HistoriaServiceImp implements HistorialService {
 
 		try {
 			Paciente pacienteEntity =  pacienteR.findById(idPaciente).orElseThrow(
-<<<<<<< HEAD
-					()->new EntityNotFoundException("El id del paciente no existe en la BD")
+					()->new EntityNotFoundException(ErrorMessage.PACIENTE_NOT_FOUND)
 					);
 			HistorialMedico histEntity = historialR.findById(idHistorial).orElseThrow(
-					()->new EntityNotFoundException("El id del historial medico aun no existe en la BD")
-=======
-					()->new EntityNotFoundException("El paciente con el id proporcionado no ha sido encontrado")
-					);
-			HistorialMedico histEntity = historialR.findById(idHistorial).orElseThrow(
-					()->new EntityNotFoundException("El historial con id proporcionado no ha sido encontrado")
->>>>>>> bba6c690139ed01e5b0d52af8e607992f572d4d0
+					()->new EntityNotFoundException(ErrorMessage.HISTORIAL_MEDICO_NOT_FOUND)
 					);
 			if (pacienteEntity.getHistorialMedico()== null) {
 				histEntity.setPaciente(pacienteEntity);

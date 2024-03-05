@@ -14,12 +14,7 @@ public interface HistorialService {
      * @return Lista de historiales médicos.
      */
 	List<HistorialMedico> listarHistorial();
-<<<<<<< HEAD
-	HistorialMedico buscarPorIdHistorial(Long idHistorial)throws EntityNotFoundException;
-	HistorialMedico grabarHistorial(HistorialMedico historial)throws IllegalOperationException;
-	HistorialMedico actualizarHistorial(Long idHistorial, HistorialMedico historial) throws EntityNotFoundException, IllegalOperationException;
-	void eliminarHistorial(Long idHistorial) throws EntityNotFoundException, IllegalOperationException;
-=======
+
 	/**
      * Busca un historial médico por su ID.
      *
@@ -36,7 +31,7 @@ public interface HistorialService {
      * @return El historial médico guardado.
      * @throws IllegalOperationException Si se produce una operación ilegal al guardar el historial médico.
      */HistorialMedico grabarHistorial(HistorialMedico historial)throws IllegalOperationException;
->>>>>>> bba6c690139ed01e5b0d52af8e607992f572d4d0
+
 	
      /**
       * Actualiza un historial médico existente.
