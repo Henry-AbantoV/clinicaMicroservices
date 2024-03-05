@@ -1,3 +1,8 @@
+/*
+ * @file CitaDTO.java;
+ * @Autor Daniela Torres (c)2024
+ * @Created 5 mar 2024,0:24:53
+ */
 package edu.unc.clinica.dto;
 
 import java.util.Date;
@@ -8,7 +13,8 @@ import lombok.Data;
 //Declaración de la clase CitaDTO
 @Data
 public class CitaDTO {
-	 // Campo para almacenar el identificador único de la cita
+	 
+ 	// Campo para almacenar el identificador único de la cita
 	private Long idCita;
 	// Campo para almacenar la fecha y hora de la cita
     private Date fechaHoraCita;
