@@ -155,7 +155,12 @@ public class PacienteController {
 		return ResponseEntity.ok(paciente);
 
 	}
-
+	/**
+     * Método privado para manejar errores de validación en la entrada de datos de los endpoints.
+     * 
+     * @param result BindingResult con los errores de validación.
+     * @return ResponseEntity con los errores formateados.
+     */
 	private ResponseEntity<Map<String, String>> validar(BindingResult result) {
 		Map<String, String> errores = new HashMap<>();
 		result.getFieldErrors().forEach(err -> {
