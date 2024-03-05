@@ -1,3 +1,8 @@
+/*
+ * @file Medico.java;
+ * @Autor YerssonC.D (c)2024
+ * @Created 5 mar 2024,0:27:00
+ */
 package edu.unc.clinica.domain;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,35 +22,45 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
+// TODO: Auto-generated Javadoc
 @Data
 @Entity
 public class Medico {
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idMedico;
 	
+	
 	@NotBlank(message = "El nombre del Dr. no deben estar en blanco")
 	private String nombre;
 	
+
 	@NotBlank(message = "Los apellidos del Dr. no deben estar en blanco")
 	private String apellidos;
+	
 	
 	@NotBlank(message = "El número de teléfono no puede estar vacío.")
 	@Size(min = 9, max = 9, message = "El número de teléfono debe tener 9 caracteres.")
 	@Pattern(regexp = "^[0-9]*$", message = "El telefono debe contener numeros del 1 al 9")
 	private String telefono;
 	
+
 	@NotBlank(message = "El horario de atencion del Dr. no puede estar vacío.")
 	private String horario;
+	
 	
 	@Column(unique=true)
 	@Email(message = "El formato del correo electrónico no es válido")
     @Size(max = 30, message = "El email debe tener max de 30 caracteres.")
 	private String correoElectronico;
 
+	
 	@ManyToMany(mappedBy="medicos")
 	private List<Paciente>pacientes= new ArrayList<>(); 
 	
+
 	@ManyToOne
     @JoinColumn(name="medicos")
    	private Especialidad especialidad;
