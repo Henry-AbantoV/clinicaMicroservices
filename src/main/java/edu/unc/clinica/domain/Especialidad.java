@@ -1,3 +1,8 @@
+/*
+ * @file Especialidad.java;
+ * @Autor Fernando C.J. (c)2024
+ * @Created 5 mar. 2024,00:39:05
+ */
 package edu.unc.clinica.domain;
 
 //Importa las clases necesarias
@@ -14,10 +19,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
-
+//Anotación que indica que esta clase es una entidad JPA
 @Entity
+//Anotación de Lombok que agrega automáticamente los métodos getter, setter, equals, hashCode y toString
 @Data
 public class Especialidad {
+	
 	// Identificador único generado automáticamente para la especialidad
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
