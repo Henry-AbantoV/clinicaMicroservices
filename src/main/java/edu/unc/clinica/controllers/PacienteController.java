@@ -1,3 +1,8 @@
+/*
+ * @file PacienteController.java;
+ * @Autor Daniela Torres (c)2024
+ * @Created 5 mar 2024,3:30:11
+ */
 package edu.unc.clinica.controllers;
 
 import java.util.HashMap;
@@ -28,13 +33,17 @@ import edu.unc.clinica.exceptions.IllegalOperationException;
 import edu.unc.clinica.services.PacienteService;
 import edu.unc.clinica.util.ApiResponse;
 
+// TODO: Auto-generated Javadoc
+
 @RestController
 @RequestMapping(value = "api/v1/pacientes", headers = "Api-Version=1")
 public class PacienteController {
 
+	/** The paciente S. */
 	@Autowired
 	private PacienteService pacienteS;
 
+	/** The model mapper. */
 	@Autowired
 	private ModelMapper modelMapper;
 

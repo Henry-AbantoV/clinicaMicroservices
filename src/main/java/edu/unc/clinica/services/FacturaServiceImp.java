@@ -44,7 +44,9 @@ public class FacturaServiceImp implements FacturaService {
 	@Transactional(readOnly=true)
 	public Factura buscarFacturabyId(Long IdFactura) throws EntityNotFoundException  {
 		Optional<Factura> factura=facturaR.findById(IdFactura);
-		
+		if(factura.isEmpty()) {
+			throw new EntityNotFoundException("La factura con el ID proporcinado no se encontró");
+		}
 		return factura.get();
 				
 	}
@@ -58,6 +60,9 @@ public class FacturaServiceImp implements FacturaService {
      */
 	@Override
 	public Factura grabarFactura(Factura factura) throws IllegalOperationException  {
+		/*if(facturaR.findById(factura.getIdFactura())!=null) {
+			throw new IllegalOperationException("La factura con el ID requerido ya existe");
+		}*/
 		return facturaR.save(factura);
 	}
 
@@ -70,7 +75,9 @@ public class FacturaServiceImp implements FacturaService {
      */
 	@Override
 	public void eliminarFactura(Long IdFactura)  throws EntityNotFoundException, IllegalOperationException {
-	 facturaR.deleteById(IdFactura);
+	    Factura factura=facturaR.findById(IdFactura).orElseThrow(
+	    		()->new EntityNotFoundException("La factura con el ID proporcionado no se encontró "));
+		facturaR.deleteById(IdFactura);
 	}
 	
 	 /**
@@ -87,7 +94,7 @@ public class FacturaServiceImp implements FacturaService {
 	public Factura actualizarFactura(Long id, Factura factura) throws EntityNotFoundException, IllegalOperationException {
 	Optional<Factura> facEntity = facturaR.findById(id);
 	if(facEntity.isEmpty())
-		throw new EntityNotFoundException(ErrorMessage.FACTURA_NOT_FOUND);
+		throw new EntityNotFoundException("La factura con el ID proporcionado no fue encontrado");
 	/*if(!facturaR.findByCosto(factura.getCosto()).isEmpty()) {
 		throw new IllegalOperationException("El costo total de la factura ya existe");
 	}	*/

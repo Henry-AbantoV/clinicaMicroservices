@@ -20,13 +20,12 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
-//TODO: Auto-generated Javadoc
+
 /**
  * La clase Historial Medico representa un historial medico en el sistema. Esta clase está
  * marcada con la anotación @Entity para indicar que es una entidad de base de
  * datos. También utiliza las anotaciones Lombok @Data para generar
  * automáticamente los métodos getter, setter, toString, equals y hashCode.
-=======
 
 // TODO: Auto-generated Javadoc
 /**

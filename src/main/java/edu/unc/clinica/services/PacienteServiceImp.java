@@ -51,6 +51,9 @@ public class PacienteServiceImp implements PacienteService{
 	@Transactional(readOnly=true)
 	public Paciente buscarPacienteById(Long IdPacient) throws EntityNotFoundException {
 		Optional<Paciente> paciente=pacientR.findById(IdPacient);
+		if(paciente.isEmpty()) {
+			throw new EntityNotFoundException("El paciente con el ID proporcionado no se encontró");
+		}
 		return paciente.get();
 	}
 
@@ -81,7 +84,7 @@ public class PacienteServiceImp implements PacienteService{
 	public Paciente actualizarPaciente(Long id, Paciente paciente)throws EntityNotFoundException, IllegalOperationException {
 		Optional<Paciente> pacEntity = pacientR.findById(id);
 		if(pacEntity.isEmpty())
-			throw new EntityNotFoundException(ErrorMessage.PACIENTE_NOT_FOUND);
+			throw new EntityNotFoundException("El paciente con el ID proporcionado no fue encontrado");
 			
 		paciente.setIdPaciente(id);		
 		return pacientR.save(paciente);
@@ -97,6 +100,8 @@ public class PacienteServiceImp implements PacienteService{
 	@Override
 	@Transactional
 	public void eliminarPaciente(Long IdPacient) throws EntityNotFoundException, IllegalOperationException {
+		Paciente paciente=pacientR.findById(IdPacient).orElseThrow(
+				()->new EntityNotFoundException("El paciente con el ID proporcionado no fue encontrado"));
 		pacientR.deleteById(IdPacient);
 		
 	}
@@ -116,11 +121,11 @@ public class PacienteServiceImp implements PacienteService{
 		 // Intenta encontrar el paciente y la cita y luego los asocia si la cita no tiene ya un paciente asignado.
 		try {
 			Paciente pacienteEntity =  pacientR.findById(IdPacient).orElseThrow(
-					()->new EntityNotFoundException(ErrorMessage.PACIENTE_NOT_FOUND)
+					()->new EntityNotFoundException("El paciente con el ID proporcionado no fue encontrado")
 					);
 			Cita citaEntity = citaR.findById(IdCita).orElseThrow(
-					()->new EntityNotFoundException(ErrorMessage.CITA_NOT_FOUND)
-					);
+					()->new EntityNotFoundException("La cita con el ID proporcionado no fue encontrado"));
+					
 			if (citaEntity.getPaciente()== null) {
 				citaEntity.setPaciente(pacienteEntity);
 				return pacientR.save(pacienteEntity);
