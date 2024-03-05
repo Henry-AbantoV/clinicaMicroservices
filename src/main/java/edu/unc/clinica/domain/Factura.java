@@ -1,3 +1,8 @@
+/*
+ * @file Factura.java;
+ * @Autor Henry AV (c)2024
+ * @Created 5 mar 2024,0:36:03
+ */
 package edu.unc.clinica.domain;
 
 import java.util.ArrayList;
@@ -26,6 +31,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
 
+// TODO: Auto-generated Javadoc
 /**
  * La clase Factura representa una factura en el sistema.
  * Esta clase está marcada con la anotación @Entity para indicar que es una entidad de base de datos.
@@ -68,7 +74,7 @@ public class Factura {
     @Pattern(regexp = "^[0-9]*$", message = "El costo debe contener numeros del 1 al 9")
     private double costo;
     
-    
+ 
     @OneToMany(mappedBy="factura", cascade = CascadeType.ALL)
 	private List<Cita> citas=new ArrayList<>();
 }
