@@ -21,19 +21,31 @@ import edu.unc.clinica.repositories.PacienteRepository;
 public class PacienteServiceImp implements PacienteService{
 
 	@Autowired
-	private PacienteRepository pacientR;
+	private PacienteRepository pacientR; // Repositorio para la entidad Paciente
 	
 	@Autowired
-	private CitaRepository citaR;
+	private CitaRepository citaR;  // Repositorio para la entidad Cita
 	
 	@Autowired
-	private HistorialMedicoRepository histoR;
+	private HistorialMedicoRepository histoR; // Repositorio para la entidad Historial Medico (no se usa en los métodos proporcionados)
 	
+	/**
+     * Obtiene una lista de todos los pacientes registrados en el repositorio.
+     * 
+     * @return Lista de objetos {@link Paciente}.
+     */
 	@Override
 	public List<Paciente> listarPacientes() {
 		return (List<Paciente>)pacientR.findAll();
 	}
-
+	
+	  /**
+     * Busca un paciente específico por su identificador utilizando el repositorio.
+     * 
+     * @param IdPaciente Identificador único del paciente a buscar.
+     * @return Objeto {@link Paciente} encontrado.
+     * @throws EntityNotFoundException Si el paciente no se encuentra.
+     */
 	@Override
 	@Transactional(readOnly=true)
 	public Paciente buscarPacienteById(Long IdPacient) throws EntityNotFoundException {
@@ -41,12 +53,28 @@ public class PacienteServiceImp implements PacienteService{
 		return paciente.get();
 	}
 
+	 /**
+     * Registra un nuevo paciente en el sistema mediante el repositorio.
+     * 
+     * @param paciente Objeto {@link Paciente} con la información a registrar.
+     * @return Objeto {@link Paciente} registrado con su identificador asignado.
+     * @throws IllegalOperationException Si la operación no cumple con las reglas de negocio.
+     */
 	@Override
 	@Transactional
 	public Paciente grabarPaciente(Paciente paciente) throws IllegalOperationException {
 		return pacientR.save(paciente);
 	}
 
+	/**
+     * Actualiza la información de un paciente existente.
+     * 
+     * @param id Identificador único del paciente a actualizar.
+     * @param paciente Objeto {@link Paciente} con la información actualizada.
+     * @return Objeto {@link Paciente} actualizado.
+     * @throws EntityNotFoundException Si el paciente no se encuentra.
+     * @throws IllegalOperationException Si la operación no cumple con las reglas de negocio.
+     */
 	@Override
 	@Transactional
 	public Paciente actualizarPaciente(Long id, Paciente paciente)throws EntityNotFoundException, IllegalOperationException {
@@ -58,6 +86,13 @@ public class PacienteServiceImp implements PacienteService{
 		return pacientR.save(paciente);
 	}
 
+	   /**
+     * Elimina un paciente del sistema identificado por su ID.
+     * 
+     * @param IdPaciente Identificador único del paciente a eliminar.
+     * @throws EntityNotFoundException Si el paciente no se encuentra.
+     * @throws IllegalOperationException Si la operación no cumple con las reglas de negocio.
+     */
 	@Override
 	@Transactional
 	public void eliminarPaciente(Long IdPacient) throws EntityNotFoundException, IllegalOperationException {
@@ -65,10 +100,19 @@ public class PacienteServiceImp implements PacienteService{
 		
 	}
 
+	   /**
+     * Asigna una cita a un paciente.
+     * 
+     * @param IdPaciente Identificador único del paciente.
+     * @param IdCita Identificador único de la cita a asignar.
+     * @return Objeto {@link Paciente} al que se le asignó la cita.
+     * @throws EntityNotFoundException Si el paciente o la cita no se encuentran.
+     * @throws IllegalOperationException Si la operación no cumple con las reglas de negocio.
+     */
 	@Override
 	@Transactional
 	public Paciente asignarCita(Long IdPacient, Long IdCita) throws EntityNotFoundException, IllegalOperationException {
-
+		 // Intenta encontrar el paciente y la cita y luego los asocia si la cita no tiene ya un paciente asignado.
 		try {
 			Paciente pacienteEntity =  pacientR.findById(IdPacient).orElseThrow(
 					()->new EntityNotFoundException(ErrorMessage.PACIENTE_NOT_FOUND)
