@@ -33,11 +33,14 @@ import edu.unc.clinica.util.ApiResponse;
 @RestController
 @RequestMapping(value = "api/v1/historial", headers = "Api-Version=1")
 public class HistorialMedicoController {
+	
+    // Inyección de dependencias de los servicios necesarios
 	@Autowired
 	private HistorialService historialS;
 	@Autowired
 	private ModelMapper modelMapper;
 
+	// Método para obtener todos los historiales médicos
 	@GetMapping
 	public ResponseEntity<?> obtenerTodosHistoriales() {
 
@@ -52,6 +55,7 @@ public class HistorialMedicoController {
 		}
 	}
 
+	// Método para obtener un historial médico por su ID
 	@GetMapping("/{id}")
 	public ResponseEntity<?> obtenerHistorialesPorId(@PathVariable Long id) throws EntityNotFoundException {
 
@@ -62,6 +66,7 @@ public class HistorialMedicoController {
 		return ResponseEntity.ok(response);
 	}
 
+	// Método para guardar un nuevo historial médico
 	@PostMapping
 	public ResponseEntity<?> guardarHistorial(@Valid @RequestBody HistorialDTO historialDto, BindingResult result)
 			throws IllegalOperationException {
@@ -78,7 +83,7 @@ public class HistorialMedicoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
 	}
-
+	 // Método para actualizar un historial médico existente
 	@PutMapping("/{id}")
 	public ResponseEntity<ApiResponse<HistorialDTO>> actualizarHistorial(@PathVariable Long id,
 			@RequestBody HistorialDTO historialDto) throws EntityNotFoundException, IllegalOperationException {
@@ -91,6 +96,7 @@ public class HistorialMedicoController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
+	// Método para eliminar un historial médico por su ID
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> eliminarHistorial(@PathVariable Long id)
 			throws EntityNotFoundException, IllegalOperationException {
@@ -98,7 +104,8 @@ public class HistorialMedicoController {
 		ApiResponse<?> response = new ApiResponse<>(true, "Historial médico eliminado con exito", null);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-
+	
+	 // Método para asignar un historial médico a un paciente
 	@PutMapping(value = "/{idHistorial}/{idPaciente}")
 	public ResponseEntity<?> asignarHistorial(@PathVariable Long idHistorial, @PathVariable Long idPaciente)
 			throws EntityNotFoundException, IllegalOperationException {
@@ -106,6 +113,8 @@ public class HistorialMedicoController {
 		return ResponseEntity.ok(historial);
 
 	}
+	
+	// Método para manejar errores de validación
 	private ResponseEntity<Map<String, String>> validar(BindingResult result) {
 		Map<String, String> errores = new HashMap<>();
 		result.getFieldErrors().forEach(err -> {
