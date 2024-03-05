@@ -1,10 +1,5 @@
 
 /*
- * @file Especialidad.java;
-<<<<<<< HEAD
- * @Autor Daniela Torres (c)2024
- * @Created 5 mar 2024,0:31:12
-=======
 * @Autor Fernando C.J. (c)2024
  * @Created 5 mar. 2024,00:39:05
 >>>>>>> 5a45278ea137551ce211d440fce8777cd3988110
@@ -30,10 +25,6 @@ import lombok.Data;
 //Anotación de Lombok que agrega automáticamente los métodos getter, setter, equals, hashCode y toString
 @Data
 public class Especialidad {
-<<<<<<< HEAD
-	
-=======
->>>>>>> 5a45278ea137551ce211d440fce8777cd3988110
 
 	// Identificador único generado automáticamente para la especialidad
 	@Id
