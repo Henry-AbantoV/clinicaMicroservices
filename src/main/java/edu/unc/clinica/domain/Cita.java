@@ -65,6 +65,5 @@ public class Cita {
     // Paciente asociado a la cita
     @ManyToOne
     @JoinColumn(name="id_Paciente")
-    private Paciente paciente;
-    
+    private Paciente paciente;    
 }
