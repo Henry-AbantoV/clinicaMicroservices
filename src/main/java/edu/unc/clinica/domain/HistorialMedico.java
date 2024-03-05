@@ -1,14 +1,9 @@
 /*
  * @file HistorialMedico.java;
-<<<<<<< HEAD
  * @Autor Henry AV (c)2024
  * @Created 5 mar 2024,0:36:03
  */
-=======
- * @Autor Daniela Torres (c)2024
- * @Created 5 mar 2024,0:32:56
- */
->>>>>>> f9521bda1cf2a7f3117bc212851ba9974dd6d196
+
 package edu.unc.clinica.domain;
 
 import java.util.Date;
@@ -25,7 +20,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
-<<<<<<< HEAD
 //TODO: Auto-generated Javadoc
 /**
  * La clase Historial Medico representa un historial medico en el sistema. Esta clase está

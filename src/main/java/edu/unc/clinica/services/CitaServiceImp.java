@@ -25,6 +25,7 @@ public class CitaServiceImp implements CitaService {
 	private FacturaRepository facturaR;
 	
 	@Override
+	@Transactional
 	public List<Cita> listarCitas() {
 		return (List<Cita>)citaR.findAll();
 	}
@@ -33,17 +34,27 @@ public class CitaServiceImp implements CitaService {
 	@Transactional(readOnly=true)
 	public Cita buscarCitabyId(Long IdCita) throws EntityNotFoundException  {
 		Optional<Cita> cita=citaR.findById(IdCita);
+		if(cita.isEmpty()) {
+			throw new EntityNotFoundException("La cita con el ID proporcionado no se encontró.");
+		}
 		return cita.get();
 		}
 
 	@Override
 	@Transactional
 	public Cita grabarCita(Cita cita) throws IllegalOperationException  {
+		if(citaR.findById(cita.getIdCita())!=null) {
+			throw new IllegalOperationException("La cita con el id requerido ya existe.");
+		}
 		return citaR.save(cita);
 	}
 
 	@Override
+	@Transactional
 	public void eliminarCita(Long IdCita) throws EntityNotFoundException, IllegalOperationException {
+		Cita cita=citaR.findById(IdCita).orElseThrow(
+				()->new EntityNotFoundException("La cita con id proporcionado no se encontro"));
+				
 		citaR.deleteById(IdCita);
 		
 	}
@@ -53,7 +64,7 @@ public class CitaServiceImp implements CitaService {
 	public Cita actualizarCita(Long id, Cita cita) throws EntityNotFoundException, IllegalOperationException {
 		Optional<Cita> citaEntity = citaR.findById(id);
 		if(citaEntity.isEmpty())
-			throw new EntityNotFoundException(ErrorMessage.CITA_NOT_FOUND);
+			throw new EntityNotFoundException("La cita con id proporcionado no fue encontrado");
 			
 		cita.setIdCita(id);		
 		return citaR.save(cita);

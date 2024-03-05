@@ -1,14 +1,9 @@
 /*
  * @file Especialidad.java;
-<<<<<<< HEAD
  * @Autor Daniela Torres (c)2024
  * @Created 5 mar 2024,0:31:12
  */
-=======
- * @Autor Fernando C.J. (c)2024
- * @Created 5 mar. 2024,00:39:05
- */
->>>>>>> 262dbf0daa7be9d296cc119823432e54baf49f96
+
 package edu.unc.clinica.domain;
 
 //Importa las clases necesarias
@@ -31,10 +26,7 @@ import lombok.Data;
 @Data
 public class Especialidad {
 	
-<<<<<<< HEAD
-	/** The id especialidad. */
-=======
->>>>>>> 262dbf0daa7be9d296cc119823432e54baf49f96
+
 	// Identificador único generado automáticamente para la especialidad
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
