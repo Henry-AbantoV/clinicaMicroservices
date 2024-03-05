@@ -77,8 +77,8 @@ public class MedicoServiceImp implements MedicoService {
 
 		// Verificar si el mÃ©dico ya tiene asignado este paciente
 		if (!medicoEntity.getPacientes().contains(paciente)) {
-			medicoEntity.getPacientes().add(paciente); // Agregar el paciente a la lista de pacientes del mÃ©dico
-			medicoRep.save(medicoEntity); // Guardar el mÃ©dico con su lista de pacientes actualizada
+			medicoEntity.getPacientes().add(paciente); // Agregar el paciente a la lista de pacientes del medico
+			medicoRep.save(medicoEntity); // Guardar el medico con su lista de pacientes actualizada
 		} else {
 			throw new IllegalOperationException("Este paciente ya estÃ¡ asignado a este mÃ©dico");
 		}

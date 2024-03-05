@@ -15,5 +15,8 @@ public class HistorialDTO {
     private String procedimientosRealizados;
     private String medicamentosRecetados;
     private String ResultadosPruebasMedicas;
+    
     private Paciente paciente;
+    
+    
 }

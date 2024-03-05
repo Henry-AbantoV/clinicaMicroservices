@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.unc.clinica.domain.Cita;
+import edu.unc.clinica.domain.HistorialMedico;
 import edu.unc.clinica.domain.Paciente;
 import edu.unc.clinica.exceptions.EntityNotFoundException;
 import edu.unc.clinica.exceptions.ErrorMessage;
 import edu.unc.clinica.exceptions.IllegalOperationException;
 import edu.unc.clinica.repositories.CitaRepository;
+import edu.unc.clinica.repositories.HistorialMedicoRepository;
 import edu.unc.clinica.repositories.PacienteRepository;
 
 @Service
@@ -23,6 +25,9 @@ public class PacienteServiceImp implements PacienteService{
 	
 	@Autowired
 	private CitaRepository citaR;
+	
+	@Autowired
+	private HistorialMedicoRepository histoR;
 	
 	@Override
 	public List<Paciente> listarPacientes() {
@@ -79,6 +84,29 @@ public class PacienteServiceImp implements PacienteService{
 	        }
 			}catch (Exception e) {
 		        throw new IllegalOperationException("Error durante la asignación de cita");
+		    }
+	
+	}
+	
+	@Override
+	@Transactional
+	public Paciente asignarHistorial(Long idPaciente, Long idHistorial) throws EntityNotFoundException, IllegalOperationException {
+
+		try {
+			Paciente pacienteEntity =  pacientR.findById(idPaciente).orElseThrow(
+					()->new EntityNotFoundException(ErrorMessage.PACIENTE_NOT_FOUND)
+					);
+			HistorialMedico histEntity = histoR.findById(idHistorial).orElseThrow(
+					()->new EntityNotFoundException(ErrorMessage.HISTORIAL_MEDICO_NOT_FOUND)
+					);
+			if (pacienteEntity.getHistorialMedico()== null) {
+				pacienteEntity.setHistorialMedico(histEntity);
+				return pacientR.save(pacienteEntity);
+	        } else {
+	            throw new IllegalOperationException("El paciente ya tiene asignado un historial");
+	        }
+			}catch (Exception e) {
+		        throw new IllegalOperationException("Error durante la asignación de historial");
 		    }
 	
 	}

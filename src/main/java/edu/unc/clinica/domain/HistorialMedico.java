@@ -30,16 +30,16 @@ public class HistorialMedico {
 	
 	private String diagnosticosAnteriores;
 	
-	 @NotBlank(message = "Los tratamientos previos no deben estar en blanco")
+	@NotBlank(message = "Los tratamientos previos no deben estar en blanco")
     private String tratamientosPrevios;
 	 
-	 @NotBlank(message = "Los procedimientos realizados no deben estar en blanco")
+	@NotBlank(message = "Los procedimientos realizados no deben estar en blanco")
     private String procedimientosRealizados;
 	 
-	 @NotBlank(message = "Los medicamentos a recetar no deben estar en blanco")
+	@NotBlank(message = "Los medicamentos a recetar no deben estar en blanco")
     private String medicamentosRecetados;
 	 
-	 @NotBlank(message = "Los resultados de las pruebas medicas no deben estar en blanco")
+	@NotBlank(message = "Los resultados de las pruebas medicas no deben estar en blanco")
     private String ResultadosPruebasMedicas;
     
     

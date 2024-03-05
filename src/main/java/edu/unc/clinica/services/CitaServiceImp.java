@@ -37,6 +37,7 @@ public class CitaServiceImp implements CitaService {
 		}
 
 	@Override
+	@Transactional
 	public Cita grabarCita(Cita cita) throws IllegalOperationException  {
 		return citaR.save(cita);
 	}

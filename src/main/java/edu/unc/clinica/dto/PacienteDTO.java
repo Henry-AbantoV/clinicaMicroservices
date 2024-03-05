@@ -30,5 +30,6 @@ public class PacienteDTO {
     private String correoElectronico;
     
     private List<Cita> citas = new ArrayList<>();
+    
     private HistorialMedico historialMedico;
 }

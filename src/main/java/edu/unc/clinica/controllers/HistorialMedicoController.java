@@ -36,70 +36,73 @@ public class HistorialMedicoController {
 	private HistorialService historialS;
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@GetMapping
-	public ResponseEntity <?> obtenerTodosHistoriales() {
-	     
-        List<HistorialMedico> historial = historialS.listarHistorial();
-        if(historial==null || historial.isEmpty()) {
-        	return ResponseEntity.noContent().build();
-        }
-        else {
-        	List<HistorialDTO> historialDto=historial.stream()
-        			.map(historiales->modelMapper.map(historiales, HistorialDTO.class))
-        			.collect(Collectors.toList());
-        	ApiResponse<List<HistorialDTO>> response=new ApiResponse<>(true, "Lista de historiales",historialDto);
-        	return ResponseEntity.ok(response);
-        }   
-    }
-	
+	public ResponseEntity<?> obtenerTodosHistoriales() {
+
+		List<HistorialMedico> historial = historialS.listarHistorial();
+		if (historial == null || historial.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		} else {
+			List<HistorialDTO> historialDto = historial.stream()
+					.map(historiales -> modelMapper.map(historiales, HistorialDTO.class)).collect(Collectors.toList());
+			ApiResponse<List<HistorialDTO>> response = new ApiResponse<>(true, "Lista de historiales", historialDto);
+			return ResponseEntity.ok(response);
+		}
+	}
+
 	@GetMapping("/{id}")
-    public ResponseEntity<?> obtenerHistorialesPorId(@PathVariable Long id) throws EntityNotFoundException {
-      
-            Optional<HistorialMedico> historial = historialS.buscarPorIdHistorial(id);
-            
-            HistorialDTO historialDto=modelMapper.map(historial, HistorialDTO.class);
-            ApiResponse<HistorialDTO> response=new ApiResponse<>(true, "Lista de Historiales",historialDto);
-            return ResponseEntity.ok(response);            
-    }
-	
+	public ResponseEntity<?> obtenerHistorialesPorId(@PathVariable Long id) throws EntityNotFoundException {
+
+		Optional<HistorialMedico> historial = historialS.buscarPorIdHistorial(id);
+
+		HistorialDTO historialDto = modelMapper.map(historial, HistorialDTO.class);
+		ApiResponse<HistorialDTO> response = new ApiResponse<>(true, "Lista de Historiales", historialDto);
+		return ResponseEntity.ok(response);
+	}
+
 	@PostMapping
-    public ResponseEntity<?> guardarHistorial(@Valid @RequestBody HistorialDTO historialDto, BindingResult result) throws IllegalOperationException {
-        
-		if(result.hasErrors()) {
+	public ResponseEntity<?> guardarHistorial(@Valid @RequestBody HistorialDTO historialDto, BindingResult result)
+			throws IllegalOperationException {
+
+		if (result.hasErrors()) {
 			return validar(result);
 		}
-            HistorialMedico nuevoHistorial = modelMapper.map(historialDto, HistorialMedico.class);
-            historialS.grabarHistorial(nuevoHistorial);
-            HistorialDTO saveHistorialDto=modelMapper.map(nuevoHistorial, HistorialDTO.class);
-            ApiResponse<HistorialDTO> response=new ApiResponse<>(true, "Historial médico guardado", saveHistorialDto);
-             
-           return ResponseEntity.status(HttpStatus.CREATED).body(response);       
-    }
-	
+		HistorialMedico nuevoHistorial = modelMapper.map(historialDto, HistorialMedico.class);
+		historialS.grabarHistorial(nuevoHistorial);
+		HistorialDTO saveHistorialDto = modelMapper.map(nuevoHistorial, HistorialDTO.class);
+
+		ApiResponse<HistorialDTO> response = new ApiResponse<>(true, "Historial médico guardado", saveHistorialDto);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+	}
+
 	@PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<HistorialDTO>> actualizarHistorial(@PathVariable Long id, @RequestBody HistorialDTO historialDto) throws EntityNotFoundException, IllegalOperationException {
-      
-            HistorialMedico historialActualizado = modelMapper.map(historialDto, HistorialMedico.class);
-            historialS.actualizarHistorial(id, historialActualizado);
-            HistorialDTO updateHistorial=modelMapper.map(historialActualizado, HistorialDTO.class);
-            ApiResponse<HistorialDTO> response=new ApiResponse<>(true, "Factura actualizada", updateHistorial);
-            
-            return ResponseEntity.status(HttpStatus.OK).body(response);        
-    }
-	
+	public ResponseEntity<ApiResponse<HistorialDTO>> actualizarHistorial(@PathVariable Long id,
+			@RequestBody HistorialDTO historialDto) throws EntityNotFoundException, IllegalOperationException {
+
+		HistorialMedico historialActualizado = modelMapper.map(historialDto, HistorialMedico.class);
+		historialS.actualizarHistorial(id, historialActualizado);
+		HistorialDTO updateHistorial = modelMapper.map(historialActualizado, HistorialDTO.class);
+		ApiResponse<HistorialDTO> response = new ApiResponse<>(true, "Factura actualizada", updateHistorial);
+
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
 	@DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarHistorial(@PathVariable Long id) throws EntityNotFoundException, IllegalOperationException{
-    	historialS.eliminarHistorial(id);
-    	ApiResponse<?> response=new ApiResponse<>(true, "Historial médico eliminado con exito", null);
-    	return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
-	
-	 private ResponseEntity<Map<String, String>> validar(BindingResult result) {
-	        Map<String, String> errores = new HashMap<>();
-	        result.getFieldErrors().forEach(err -> {
-	            errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
-	        });
-	        return ResponseEntity.badRequest().body(errores);
-	    }
+	public ResponseEntity<?> eliminarHistorial(@PathVariable Long id)
+			throws EntityNotFoundException, IllegalOperationException {
+		historialS.eliminarHistorial(id);
+		ApiResponse<?> response = new ApiResponse<>(true, "Historial médico eliminado con exito", null);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	private ResponseEntity<Map<String, String>> validar(BindingResult result) {
+		Map<String, String> errores = new HashMap<>();
+		result.getFieldErrors().forEach(err -> {
+			errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
+		});
+		return ResponseEntity.badRequest().body(errores);
+	}
 }
