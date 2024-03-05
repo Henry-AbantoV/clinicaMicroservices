@@ -68,6 +68,7 @@ public class CitaController {
 	     * Maneja las solicitudes GET para obtener una factura por su ID.
 	     * @param id El ID de la factura.
 	     * @return ResponseEntity con la FacturaDTO correspondiente al ID o un mensaje de error si no se encuentra la factura.
+	     * @throws EntityNotFoundException 
 	     */
 	   
 	    @GetMapping("/{id}")
@@ -88,7 +89,7 @@ public class CitaController {
 	     */
 	 
 	    @PostMapping
-	    public ResponseEntity<?> guardarCita(@Valid @RequestBody Cita citaDto, BindingResult result) throws IllegalOperationException {
+	    public ResponseEntity<?> guardarCita(@Valid @RequestBody Cita citaDto, BindingResult result) throws IllegalOperationException  {
 	        
 	    	if(result.hasErrors()) {
 				return validar(result);
@@ -113,7 +114,7 @@ public class CitaController {
 	     */ 
 	    
 	    @PutMapping("/{id}")
-	    public ResponseEntity<ApiResponse<CitaDTO>> actualizarCita(@RequestBody CitaDTO citaDto, @PathVariable Long id) throws EntityNotFoundException, IllegalOperationException {
+	    public ResponseEntity<ApiResponse<CitaDTO>> actualizarCita(@RequestBody CitaDTO citaDto, @PathVariable Long id) throws EntityNotFoundException, IllegalOperationException  {
 	       	    Cita citaActualizada = modelMapper.map(citaDto, Cita.class);
 	            citaS.actualizarCita(id, citaActualizada);
 	            CitaDTO updateCita=modelMapper.map(citaActualizada, CitaDTO.class);
@@ -131,7 +132,7 @@ public class CitaController {
 	     */
 	    
 	    @DeleteMapping("/{id}")
-	    public ResponseEntity<?> eliminarCita(@PathVariable Long id) throws EntityNotFoundException, IllegalOperationException{
+	    public ResponseEntity<?> eliminarCita(@PathVariable Long id) throws EntityNotFoundException, IllegalOperationException {
 	    	citaS.eliminarCita(id);
 	    	ApiResponse<?> response=new ApiResponse<>(true, "Factura eliminada con exito", null);
 	    	return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -148,7 +149,7 @@ public class CitaController {
 	     */
 	    
 	    @PutMapping(value = "/{IdCita}/{IdFactura}")
-	    public ResponseEntity<?> asignarFactura (@PathVariable Long IdCita, @PathVariable Long IdFactura) throws EntityNotFoundException, IllegalOperationException{ 	    	
+	    public ResponseEntity<?> asignarFacturas (@PathVariable Long IdCita, @PathVariable Long IdFactura) throws EntityNotFoundException, IllegalOperationException { 	    	
 	    	Cita cita = citaS.asignarFactura(IdCita, IdFactura);
 	            return ResponseEntity.ok(cita);   		
 	    

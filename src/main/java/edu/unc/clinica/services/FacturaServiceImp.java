@@ -13,17 +13,33 @@ import edu.unc.clinica.exceptions.ErrorMessage;
 import edu.unc.clinica.exceptions.IllegalOperationException;
 import edu.unc.clinica.repositories.FacturaRepository;
 
+/**
+ * La clase FacturaServiceImp implementa la interfaz FacturaService y proporciona la lógica de negocio para operaciones relacionadas con las facturas en el sistema.
+ * Está marcada con la anotación @Service para indicar que es un componente de servicio gestionado por Spring.
+ */
 @Service
 public class FacturaServiceImp implements FacturaService {
 
 	@Autowired
 	private FacturaRepository facturaR;
 	
+	/**
+     * Recupera una lista de todas las facturas almacenadas en el sistema.
+     *
+     * @return Lista de facturas.
+     */
 	@Override
 	public List<Factura> listarFacturas() {
 		return (List<Factura>) facturaR.findAll();
 		}
 
+	/**
+     * Busca una factura por su identificador único.
+     *
+     * @param idFactura Identificador único de la factura.
+     * @return Factura correspondiente al ID proporcionado.
+     * @throws EntityNotFoundException Si no se encuentra la factura con el ID especificado.
+     */
 	@Override
 	@Transactional(readOnly=true)
 	public Factura buscarFacturabyId(Long IdFactura) throws EntityNotFoundException  {
@@ -33,16 +49,39 @@ public class FacturaServiceImp implements FacturaService {
 				
 	}
 
+	/**
+     * Guarda una nueva factura en el sistema.
+     *
+     * @param factura La factura a ser guardada.
+     * @return Factura guardada.
+     * @throws IllegalOperationException Si la operación no es válida.
+     */
 	@Override
 	public Factura grabarFactura(Factura factura) throws IllegalOperationException  {
 		return facturaR.save(factura);
 	}
 
+	/**
+     * Elimina una factura del sistema por su identificador único.
+     *
+     * @param idFactura Identificador único de la factura a ser eliminada.
+     * @throws EntityNotFoundException  Si no se encuentra la factura con el ID especificado.
+     * @throws IllegalOperationException Si la operación no es válida.
+     */
 	@Override
 	public void eliminarFactura(Long IdFactura)  throws EntityNotFoundException, IllegalOperationException {
 	 facturaR.deleteById(IdFactura);
 	}
 	
+	 /**
+     * Actualiza la información de una factura existente en el sistema.
+     *
+     * @param id      Identificador único de la factura a ser actualizada.
+     * @param factura Nueva información de la factura.
+     * @return Factura actualizada.
+     * @throws EntityNotFoundException  Si no se encuentra la factura con el ID especificado.
+     * @throws IllegalOperationException Si la operación no es válida.
+     */
 	@Override
 	@Transactional
 	public Factura actualizarFactura(Long id, Factura factura) throws EntityNotFoundException, IllegalOperationException {

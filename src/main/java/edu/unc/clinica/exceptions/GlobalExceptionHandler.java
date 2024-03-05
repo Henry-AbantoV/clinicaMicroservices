@@ -25,9 +25,10 @@ public class GlobalExceptionHandler {
      * @return         Una respuesta de entidad que contiene un mensaje de error y el estado HTTP correspondiente.
      */
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorMessage> resourceNotFoundException(EntityNotFoundException ex, WebRequest request) {
-        ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    public ResponseEntity<ApiResponse<Object>> resourceNotFoundException(EntityNotFoundException ex, WebRequest request) {
+        ApiResponse<Object> message = new ApiResponse<>(false,ex.getMessage(), null);
+
+        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
    
     /**

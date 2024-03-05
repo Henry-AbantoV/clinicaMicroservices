@@ -35,6 +35,7 @@ public class PacienteServiceImp implements PacienteService{
      * @return Lista de objetos {@link Paciente}.
      */
 	@Override
+	@Transactional
 	public List<Paciente> listarPacientes() {
 		return (List<Paciente>)pacientR.findAll();
 	}

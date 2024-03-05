@@ -59,20 +59,39 @@ public class Factura {
     @NotBlank(message = "El pago realizado no puede estar vacío.")
     private String pagoRealizados;
 
+<<<<<<< HEAD
+
+	// Saldo pendiente por pagar.
+	@NotBlank(message = "El saldo pendiente no puede estar vacío.")
+	@Size(min = 1, max = 6, message = "El saldo pendiente debe tener hasta 6 caracteres.")
+	@Pattern(regexp = "^[0-9]*$", message = "El saldo pendiente debe contener numeros del 1 al 9")
+	private double saldoPendiente;
+
+=======
     // Saldo pendiente por pagar.
     @NotBlank(message = "El saldo pendiente no puede estar vacío.")
     @Size(min = 1, max = 6, message = "El saldo pendiente debe tener hasta 6 caracteres.")
     @Pattern(regexp = "^[0-9]*$", message = "El saldo pendiente debe contener numeros del 1 al 9")
     private double saldoPendiente;
 
+>>>>>>> 5a45278ea137551ce211d440fce8777cd3988110
     // Costo total de la factura.
     @NotBlank(message = "El costo no puede estar vacío.")
     @Size(min = 1, max = 6, message = "El costo debe tener hasta 6 caracteres.")
     @Pattern(regexp = "^[0-9]*$", message = "El costo debe contener numeros del 1 al 9")
     private double costo;
+<<<<<<< HEAD
     
+    
+    @OneToMany(mappedBy="factura", cascade = CascadeType.ALL)
+	private List<Cita> citas=new ArrayList<>();
+
+
+=======
+
+
 	// Relación uno a muchos con la clase Cita, mapeada por el campo "factura" en la clase Cita.
 	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
 	private List<Cita> citas = new ArrayList<>();
-    
+>>>>>>> 5a45278ea137551ce211d440fce8777cd3988110
 }
