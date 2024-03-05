@@ -128,9 +128,7 @@ public class PacienteServiceImp implements PacienteService{
 	        }
 			}catch (Exception e) {
 		        throw new IllegalOperationException("Error durante la asignación de cita");
-		    }
-	
+		    }	
 	}
-
 
 }

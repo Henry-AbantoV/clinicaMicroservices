@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import edu.unc.clinica.domain.Paciente;
 import edu.unc.clinica.dto.PacienteDTO;
 import edu.unc.clinica.exceptions.EntityNotFoundException;
@@ -39,20 +38,35 @@ public class PacienteController {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	
-	  @GetMapping 
-	 public ResponseEntity<?> obtenerTodosPacientes() {
-	  
-	  List<Paciente> pacientes = pacienteS.listarPacientes(); if(pacientes==null ||
-	  pacientes.isEmpty()) { return ResponseEntity.noContent().build(); } else {
-	  List<PacienteDTO> pacienteDto=pacientes.stream()
-	  .map(paciente->modelMapper.map(paciente, PacienteDTO.class))
-	 .collect(Collectors.toList()); ApiResponse<List<PacienteDTO>> response=new
-	  ApiResponse<>(true, "Lista de pacientes",pacienteDto); return
-	  ResponseEntity.ok(response); }
-	
-	 }
-	
+	/**
+	 * Endpoint para obtener todos los pacientes registrados.
+	 * 
+	 * @return ResponseEntity con la lista de pacientes o un estado de no contenido
+	 *         si no hay pacientes.
+	 */
+	@GetMapping
+	public ResponseEntity<?> obtenerTodosPacientes() {
+
+		List<Paciente> pacientes = pacienteS.listarPacientes();
+		if (pacientes == null || pacientes.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		} else {
+			List<PacienteDTO> pacienteDto = pacientes.stream()
+					.map(paciente -> modelMapper.map(paciente, PacienteDTO.class)).collect(Collectors.toList());
+			ApiResponse<List<PacienteDTO>> response = new ApiResponse<>(true, "Lista de pacientes", pacienteDto);
+			return ResponseEntity.ok(response);
+		}
+
+	}
+
+
+    /**
+     * Endpoint para obtener un paciente específico por su ID.
+     * 
+     * @param id Identificador del paciente.
+     * @return ResponseEntity con la información del paciente solicitado.
+     * @throws EntityNotFoundException Si el paciente no se encuentra.
+     */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> obtenerPacientesPorId(@PathVariable Long id) throws EntityNotFoundException {
 
@@ -63,7 +77,14 @@ public class PacienteController {
 		return ResponseEntity.ok(response);
 
 	}
-
+	 /**
+     * Endpoint para guardar un nuevo paciente.
+     * 
+     * @param pacienteDto DTO del paciente a guardar.
+     * @param result BindingResult para manejar errores de validación.
+     * @return ResponseEntity con la información del paciente guardado.
+     * @throws IllegalOperationException Si la operación no cumple con las reglas de negocio.
+     */
 	@PostMapping
 	public ResponseEntity<?> guardarPaciente(@Valid @RequestBody PacienteDTO pacienteDto, BindingResult result)
 			throws IllegalOperationException {
@@ -79,7 +100,16 @@ public class PacienteController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
 	}
-
+	 
+	  /**
+     * Endpoint para actualizar la información de un paciente existente.
+     * 
+     * @param id Identificador del paciente a actualizar.
+     * @param pacienteDto DTO con la información actualizada del paciente.
+     * @return ResponseEntity con la información del paciente actualizado.
+     * @throws EntityNotFoundException Si el paciente no se encuentra.
+     * @throws IllegalOperationException Si la operación no cumple con las reglas de negocio.
+     */
 	@PutMapping("/{id}")
 	public ResponseEntity<ApiResponse<PacienteDTO>> actualizarPaciente(@PathVariable Long id,
 			@RequestBody PacienteDTO pacienteDto) throws EntityNotFoundException, IllegalOperationException {
@@ -93,6 +123,14 @@ public class PacienteController {
 
 	}
 
+	  /**
+     * Endpoint para eliminar un paciente por su ID.
+     * 
+     * @param id Identificador del paciente a eliminar.
+     * @return ResponseEntity confirmando la eliminación del paciente.
+     * @throws EntityNotFoundException Si el paciente no se encuentra.
+     * @throws IllegalOperationException Si la operación no cumple con las reglas de negocio.
+     */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> eliminarPaciente(@PathVariable Long id)
 			throws EntityNotFoundException, IllegalOperationException {
@@ -101,6 +139,15 @@ public class PacienteController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
+	  /**
+     * Endpoint para asignar una cita a un paciente.
+     * 
+     * @param IdPaciente Identificador del paciente.
+     * @param IdCita Identificador de la cita a asignar.
+     * @return ResponseEntity con el paciente al que se le asignó la cita.
+     * @throws EntityNotFoundException Si el paciente o la cita no se encuentran.
+     * @throws IllegalOperationException Si la operación no cumple con las reglas de negocio.
+     */
 	@PutMapping(value = "/{IdPaciente}/{IdCita}")
 	public ResponseEntity<?> asignarCita(@PathVariable Long IdPaciente, @PathVariable Long IdCita)
 			throws EntityNotFoundException, IllegalOperationException {
