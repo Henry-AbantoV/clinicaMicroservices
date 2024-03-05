@@ -1,3 +1,8 @@
+/*
+ * @file Factura.java;
+ * @Autor Henry AV (c)2024
+ * @Created 5 mar 2024,0:36:03
+ */
 package edu.unc.clinica.domain;
 
 import java.util.ArrayList;
@@ -10,6 +15,10 @@ import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 262dbf0daa7be9d296cc119823432e54baf49f96
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -54,6 +63,7 @@ public class Factura {
     @NotBlank(message = "El pago realizado no puede estar vacío.")
     private String pagoRealizados;
 
+<<<<<<< HEAD
     /** The saldo pendiente. */
     // Saldo pendiente por pagar.
     @NotBlank(message = "El saldo pendiente no puede estar vacío.")
@@ -62,13 +72,29 @@ public class Factura {
     private double saldoPendiente;
 
     /** The costo. */
+=======
+	// Saldo pendiente por pagar.
+	@NotBlank(message = "El saldo pendiente no puede estar vacío.")
+	@Size(min = 1, max = 6, message = "El saldo pendiente debe tener hasta 6 caracteres.")
+	@Pattern(regexp = "^[0-9]*$", message = "El saldo pendiente debe contener numeros del 1 al 9")
+	private double saldoPendiente;
+
+
+>>>>>>> 262dbf0daa7be9d296cc119823432e54baf49f96
     // Costo total de la factura.
     @NotBlank(message = "El costo no puede estar vacío.")
     @Size(min = 1, max = 6, message = "El costo debe tener hasta 6 caracteres.")
     @Pattern(regexp = "^[0-9]*$", message = "El costo debe contener numeros del 1 al 9")
     private double costo;
     
+<<<<<<< HEAD
 	// Relación uno a muchos con la clase Cita, mapeada por el campo "factura" en la clase Cita.
 	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
 	private List<Cita> citas = new ArrayList<>();
+=======
+    
+    @OneToMany(mappedBy="factura", cascade = CascadeType.ALL)
+	private List<Cita> citas=new ArrayList<>();
+
+>>>>>>> 262dbf0daa7be9d296cc119823432e54baf49f96
 }
