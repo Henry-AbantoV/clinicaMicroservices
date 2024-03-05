@@ -26,6 +26,7 @@ import lombok.Data;
 @Data
 public class Especialidad {
 
+
 	// Identificador único generado automáticamente para la especialidad
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

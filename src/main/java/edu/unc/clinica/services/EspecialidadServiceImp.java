@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.unc.clinica.domain.Cita;
 import edu.unc.clinica.domain.Especialidad;
 import edu.unc.clinica.domain.Medico;
 import edu.unc.clinica.exceptions.EntityNotFoundException;
@@ -27,11 +28,10 @@ import edu.unc.clinica.repositories.MedicoRepository;
 @Service
 public class EspecialidadServiceImp  implements EspecialidadService{
 
-	/** The Esp R. */
+
 	@Autowired
 	EspecialidadRepository EspR;
-	
-	/** The medico R. */
+
 	@Autowired
 	MedicoRepository medicoR;
 	
@@ -41,6 +41,7 @@ public class EspecialidadServiceImp  implements EspecialidadService{
      * @return Lista de objetos de tipo Especialidad.
      */
 	@Override
+	@Transactional
 	public List<Especialidad> listarEspecialidades() {
 		return EspR.findAll();
 	}
@@ -56,6 +57,9 @@ public class EspecialidadServiceImp  implements EspecialidadService{
 	@Transactional(readOnly=true)
 	public Especialidad buscarEspecialidadbyId(Long IdEsp) throws EntityNotFoundException {
 		Optional<Especialidad> espec=EspR.findById(IdEsp);
+		if(espec.isEmpty()) {
+			throw new EntityNotFoundException("La especialidad con el ID proporcionado no se encontró.");
+		}
 		return espec.get();
 	}
 
@@ -67,7 +71,9 @@ public class EspecialidadServiceImp  implements EspecialidadService{
      * @throws IllegalOperationException Si se produce una operación ilegal al intentar grabar la especialidad médica.
      */
 	@Override
+	@Transactional
 	public Especialidad grabarEspecilidad(Especialidad espec) throws IllegalOperationException {
+		
 		return EspR.save(espec);
 	}
 
@@ -84,7 +90,7 @@ public class EspecialidadServiceImp  implements EspecialidadService{
 	public Especialidad actualizarEspecilidad(Long id, Especialidad espec) throws EntityNotFoundException, IllegalOperationException{
 	Optional<Especialidad> espEntity = EspR.findById(id);
 	if(espEntity.isEmpty())
-		throw new EntityNotFoundException(ErrorMessage.ESPECIALIDAD_NOT_FOUND);
+		throw new EntityNotFoundException("La especialidad con id proporcionado no fue encontrada");
 		
 	espec.setIdEspecialidad(id);		
 	return EspR.save(espec);
@@ -99,6 +105,9 @@ public class EspecialidadServiceImp  implements EspecialidadService{
      */
 	@Override
 	public void eliminarEspecialidad(Long IdEsp) throws EntityNotFoundException, IllegalOperationException {
+		Especialidad especialidad=EspR.findById(IdEsp).orElseThrow(
+				()->new EntityNotFoundException("La especialidad con id proporcionado no se elimino"));
+		
 		EspR.deleteById(IdEsp);
 		
 	}
@@ -117,9 +126,9 @@ public class EspecialidadServiceImp  implements EspecialidadService{
 	public Especialidad asignarMedicos(Long IdEsp, Long IdMedico) throws EntityNotFoundException, IllegalOperationException {
 		try {
 			Especialidad EspeciEntity =  EspR.findById(IdEsp).orElseThrow(
-					()->new EntityNotFoundException(ErrorMessage.ESPECIALIDAD_NOT_FOUND));
+					()->new EntityNotFoundException("La especialidad con este id no existe en la BD"));
 			Medico MedicEntity = medicoR.findById(IdMedico).orElseThrow(
-					()->new EntityNotFoundException(ErrorMessage.MEDICO_NOT_FOUND));
+					()->new EntityNotFoundException("El medico con este id no existe en la BD"));
 			if (MedicEntity.getEspecialidad()== null) {
 				MedicEntity.setEspecialidad(EspeciEntity);
 	            return EspR.save(EspeciEntity);

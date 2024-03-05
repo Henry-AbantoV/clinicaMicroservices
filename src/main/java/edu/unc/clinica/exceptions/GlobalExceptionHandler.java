@@ -39,10 +39,11 @@ public class GlobalExceptionHandler {
      * @return         Una respuesta de entidad que contiene un mensaje de error y el estado HTTP correspondiente.
      */
     @ExceptionHandler(IllegalOperationException.class)
-    public ResponseEntity<ErrorMessage> illegalOperationException(IllegalOperationException ex, WebRequest request) {
-        ErrorMessage message = new ErrorMessage(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiResponse<Object>> illegalOperationException(IllegalOperationException ex, WebRequest request) {
+    	ApiResponse<Object> message = new ApiResponse<>(false,ex.getMessage(), null);
+        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
     }
+    
    
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex) {

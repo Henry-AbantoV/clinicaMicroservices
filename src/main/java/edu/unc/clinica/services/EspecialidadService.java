@@ -7,8 +7,6 @@
 package edu.unc.clinica.services;
 
 import java.util.List;
-
-import edu.unc.clinica.domain.Cita;
 import edu.unc.clinica.domain.Especialidad;
 import edu.unc.clinica.exceptions.EntityNotFoundException;
 import edu.unc.clinica.exceptions.IllegalOperationException;
