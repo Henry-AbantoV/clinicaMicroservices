@@ -32,7 +32,7 @@ public class HistoriaServiceImp implements HistorialService {
 	@Override
 	@Transactional(readOnly=true)
 	public Optional<HistorialMedico> buscarPorIdHistorial(Long idHistorial) throws EntityNotFoundException {
-		// TODO Auto-generated method stub
+		
 		return historialR.findById(idHistorial);
 	}
 
