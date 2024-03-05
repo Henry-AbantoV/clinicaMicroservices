@@ -1,3 +1,8 @@
+/*
+ * @file EspecialidadServiceImp.java;
+ * @Autor Henry AV (c)2024
+ * @Created 5 mar 2024,0:12:33
+ */
 package edu.unc.clinica.services;
 
 import java.util.List;
@@ -17,15 +22,18 @@ import edu.unc.clinica.exceptions.IllegalOperationException;
 import edu.unc.clinica.repositories.EspecialidadRepository;
 import edu.unc.clinica.repositories.MedicoRepository;
 
+// TODO: Auto-generated Javadoc
 /**
  * Implementación de la interfaz EspecialidadService que define los servicios relacionados con las especialidades médicas.
  */
 @Service
 public class EspecialidadServiceImp  implements EspecialidadService{
 
+	/** The Esp R. */
 	@Autowired
 	EspecialidadRepository EspR;
 	
+	/** The medico R. */
 	@Autowired
 	MedicoRepository medicoR;
 	
