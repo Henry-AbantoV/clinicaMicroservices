@@ -29,11 +29,10 @@ import edu.unc.clinica.repositories.MedicoRepository;
 @Service
 public class EspecialidadServiceImp  implements EspecialidadService{
 
-	/** The Esp R. */
+
 	@Autowired
 	EspecialidadRepository EspR;
-	
-	/** The medico R. */
+
 	@Autowired
 	MedicoRepository medicoR;
 	
