@@ -27,9 +27,10 @@ import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 /**
- * La clase Factura representa una factura en el sistema.
- * Esta clase está marcada con la anotación @Entity para indicar que es una entidad de base de datos.
- * También utiliza las anotaciones Lombok @Data para generar automáticamente los métodos getter, setter, toString, equals y hashCode.
+ * La clase Factura representa una factura en el sistema. Esta clase está
+ * marcada con la anotación @Entity para indicar que es una entidad de base de
+ * datos. También utiliza las anotaciones Lombok @Data para generar
+ * automáticamente los métodos getter, setter, toString, equals y hashCode.
  */
 
 @Entity
@@ -38,37 +39,37 @@ import lombok.Data;
 public class Factura {
 
 	// Identificador único de la factura.
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idFactura;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idFactura;
 
-    // Fecha de emisión de la factura.
-    @Temporal(TemporalType.DATE)
-    @PastOrPresent(message = "La fecha debe ser anterior al dia de hoy")
-    @Past(message = "La fecha de inscripción debe ser en el pasado")
-    private Date fechaEmision;
+	// Fecha de emisión de la factura.
+	@Temporal(TemporalType.DATE)
+	@PastOrPresent(message = "La fecha debe ser anterior al dia de hoy")
+	@Past(message = "La fecha de inscripción debe ser en el pasado")
+	private Date fechaEmision;
 
-    // Descripción de los servicios incluidos en la factura.
-    @NotBlank(message = "Descripcion de la factura no puede estar vacío.")
-    private String descripServicios;
+	// Descripción de los servicios incluidos en la factura.
+	@NotBlank(message = "Descripcion de la factura no puede estar vacío.")
+	private String descripServicios;
 
-    // Detalles de los pagos realizados.
-    @NotBlank(message = "El pago realizado no puede estar vacío.")
-    private String pagoRealizados;
+	// Detalles de los pagos realizados.
+	@NotBlank(message = "El pago realizado no puede estar vacío.")
+	private String pagoRealizados;
 
-    // Saldo pendiente por pagar.
-    @NotBlank(message = "El saldo pendiente no puede estar vacío.")
-    @Size(min = 1, max = 6, message = "El saldo pendiente debe tener hasta 6 caracteres.")
-    @Pattern(regexp = "^[0-9]*$", message = "El saldo pendiente debe contener numeros del 1 al 9")
-    private double saldoPendiente;
+	// Saldo pendiente por pagar.
+	@NotBlank(message = "El saldo pendiente no puede estar vacío.")
+	@Size(min = 1, max = 6, message = "El saldo pendiente debe tener hasta 6 caracteres.")
+	@Pattern(regexp = "^[0-9]*$", message = "El saldo pendiente debe contener numeros del 1 al 9")
+	private double saldoPendiente;
 
-    // Costo total de la factura.
-    @NotBlank(message = "El costo no puede estar vacío.")
-    @Size(min = 1, max = 6, message = "El costo debe tener hasta 6 caracteres.")
-    @Pattern(regexp = "^[0-9]*$", message = "El costo debe contener numeros del 1 al 9")
-    private double costo;
-    
-    
-    @OneToMany(mappedBy="factura", cascade = CascadeType.ALL)
-	private List<Cita> citas=new ArrayList<>();
+	// Costo total de la factura.
+	@NotBlank(message = "El costo no puede estar vacío.")
+	@Size(min = 1, max = 6, message = "El costo debe tener hasta 6 caracteres.")
+	@Pattern(regexp = "^[0-9]*$", message = "El costo debe contener numeros del 1 al 9")
+	private double costo;
+
+	// Relación uno a muchos con la clase Cita, mapeada por el campo "factura" en la clase Cita.
+	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
+	private List<Cita> citas = new ArrayList<>();
 }
