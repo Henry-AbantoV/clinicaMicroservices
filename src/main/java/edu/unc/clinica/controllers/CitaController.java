@@ -1,9 +1,13 @@
+/*
+ * @file CitaController.java;
+ * @Autor Daniela Torres (c)2024
+ * @Created 5 mar 2024,0:08:16
+ */
 package edu.unc.clinica.controllers;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -39,7 +43,12 @@ public class CitaController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	 @GetMapping
+	 /**
+ 	 * Obtener todas citas.
+ 	 *
+ 	 * @return the response entity
+ 	 */
+ 	@GetMapping
 	    public ResponseEntity<?> obtenerTodasCitas() {
 	     
 	            List<Cita> citas = citaS.listarCitas();
@@ -101,20 +110,15 @@ public class CitaController {
 	     * @return ResponseEntity con la FacturaDTO actualizada en caso de éxito o un mensaje de error si falla la operación.
 	     * @throws EntityNotFoundException Si no se encuentra la factura.
 	     * @throws IllegalOperationException Si ocurre una operación ilegal.
-	     */
-	  
+	     */ 
 	    
 	    @PutMapping("/{id}")
 	    public ResponseEntity<ApiResponse<CitaDTO>> actualizarCita(@RequestBody CitaDTO citaDto, @PathVariable Long id) throws EntityNotFoundException, IllegalOperationException {
-	      
-	    	
-	    	    Cita citaActualizada = modelMapper.map(citaDto, Cita.class);
+	       	    Cita citaActualizada = modelMapper.map(citaDto, Cita.class);
 	            citaS.actualizarCita(id, citaActualizada);
 	            CitaDTO updateCita=modelMapper.map(citaActualizada, CitaDTO.class);
-	            ApiResponse<CitaDTO> response=new ApiResponse<>(true, "Cita actualizada", updateCita);
-	            
-	            return ResponseEntity.status(HttpStatus.OK).body(response);
-	        
+	            ApiResponse<CitaDTO> response=new ApiResponse<>(true, "Cita actualizada", updateCita);	            
+	            return ResponseEntity.status(HttpStatus.OK).body(response);	        
 	    }
 	    
 	    
@@ -133,23 +137,36 @@ public class CitaController {
 	    	return ResponseEntity.status(HttpStatus.OK).body(response);
 	    }
 	    
+	    /**
+	     * Asigna una factura a una cita existente.
+	     * 
+	     * @param IdCita     El ID de la cita a la que se va a asignar la factura.
+	     * @param IdFactura  El ID de la factura que se va a asignar a la cita.
+	     * @return ResponseEntity que contiene la cita actualizada con la factura asignada.
+	     * @throws EntityNotFoundException   Si la cita o la factura no se encuentran en la base de datos.
+	     * @throws IllegalOperationException Si se produce una operación ilegal durante la asignación de la factura.
+	     */
+	    
 	    @PutMapping(value = "/{IdCita}/{IdFactura}")
-	    public ResponseEntity<?> asignarFactura (@PathVariable Long IdCita, @PathVariable Long IdFactura) throws EntityNotFoundException, IllegalOperationException{ 	
-	 
-	    	
+	    public ResponseEntity<?> asignarFactura (@PathVariable Long IdCita, @PathVariable Long IdFactura) throws EntityNotFoundException, IllegalOperationException{ 	    	
 	    	Cita cita = citaS.asignarFactura(IdCita, IdFactura);
 	            return ResponseEntity.ok(cita);   		
 	    
 	    }
 	    
+	    /**
+	     * Valida los resultados de la validación y devuelve un ResponseEntity con los errores en caso de que haya alguno.
+	     * 
+	     * @param result El resultado de la validación.
+	     * @return ResponseEntity que contiene un mapa de errores.
+	     */
 	    private ResponseEntity<Map<String, String>> validar(BindingResult result) {
 	        Map<String, String> errores = new HashMap<>();
 	        result.getFieldErrors().forEach(err -> {
 	            errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
 	        });
 	        return ResponseEntity.badRequest().body(errores);
-	    }
-	
+	    }	
 }
 	
 	

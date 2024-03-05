@@ -17,19 +17,26 @@ import lombok.Data;
 
 @Entity
 @Data
-
 public class HistorialMedico {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idHistorialMedico;
 	
-	
+	/**
+     * Fecha en la que se registra el historial médico.
+     */
 	@Temporal(TemporalType.DATE)
 	@PastOrPresent(message = "La fecha debe ser anterior o  al dia de hoy")
     private Date fechaRegistro;
 	
+	/**
+    * Diagnósticos previos del paciente.
+    */
 	private String diagnosticosAnteriores;
 	
+	/**
+     * Tratamientos médicos previos del paciente.
+     */
 	@NotBlank(message = "Los tratamientos previos no deben estar en blanco")
     private String tratamientosPrevios;
 	 
