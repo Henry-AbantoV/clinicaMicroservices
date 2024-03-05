@@ -77,27 +77,23 @@ public class MedicoServiceImp implements MedicoService {
 		medicoRep.deleteById(IdMedico);
 	}
 
-	@Override
-	@Transactional
 	public Medico asignarPaciente(Long idMedico, Long idPaciente)
 			throws EntityNotFoundException, IllegalOperationException {
-		try {
-			Medico MedicoEntity =  medicoRep.findById(idMedico).orElseThrow(
-					()->new EntityNotFoundException(ErrorMessage.MEDICO_NOT_FOUND)
-					);
-			Paciente pacienteEntity = pacienteRep.findById(idPaciente).orElseThrow(
-					()->new EntityNotFoundException(ErrorMessage.PACIENTE_NOT_FOUND)
-					);
-			if (pacienteEntity.getMedicos()== null) {
-				pacienteEntity.setMedicos((List<Medico>) MedicoEntity);
-	            return medicoRep.save(MedicoEntity);
-	        } else {
-	            throw new IllegalOperationException("El paciente ya esta asigando a un medico");
-	        }
-			}catch (Exception e) {
-		        throw new IllegalOperationException("Error durante la asignación de paciente");
-		    }
-			
+		Medico medicoEntity = medicoRep.findById(idMedico)
+				.orElseThrow(() -> new EntityNotFoundException("Medico no encontrado con ID: " + idMedico));
+
+		Paciente paciente = pacienteRep.findById(idPaciente)
+				.orElseThrow(() -> new EntityNotFoundException("Paciente no encontrado con ID: " + idPaciente));
+
+	
+		if (!medicoEntity.getPacientes().contains(paciente)) {
+			medicoEntity.getPacientes().add(paciente); 
+			medicoRep.save(medicoEntity); 
+		} else {
+			throw new IllegalOperationException("Este paciente ya esta asignado a este medico");
 		}
+
+		return medicoEntity;
+	}
 
 }

@@ -81,7 +81,7 @@ public class HistorialMedicoController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> obtenerHistorialesPorId(@PathVariable Long id) throws EntityNotFoundException {
 
-		Optional<HistorialMedico> historial = historialS.buscarPorIdHistorial(id);
+		HistorialMedico historial = historialS.buscarPorIdHistorial(id);
 
 		HistorialDTO historialDto = modelMapper.map(historial, HistorialDTO.class);
 		ApiResponse<HistorialDTO> response = new ApiResponse<>(true, "Lista de Historiales", historialDto);
