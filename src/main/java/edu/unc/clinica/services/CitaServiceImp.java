@@ -65,9 +65,6 @@ public class CitaServiceImp implements CitaService {
 	@Override
 	@Transactional
 	public Cita grabarCita(Cita cita) throws IllegalOperationException  {
-		if(citaR.findById(cita.getIdCita())!=null) {
-			throw new IllegalOperationException("La cita con el id requerido ya existe.");
-		}
 		return citaR.save(cita);
 	}
 

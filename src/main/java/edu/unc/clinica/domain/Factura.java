@@ -59,12 +59,12 @@ public class Factura {
     @NotBlank(message = "El pago realizado no puede estar vacío.")
     private String pagoRealizados;
 
-
     // Saldo pendiente por pagar.
     @NotBlank(message = "El saldo pendiente no puede estar vacío.")
     @Size(min = 1, max = 6, message = "El saldo pendiente debe tener hasta 6 caracteres.")
     @Pattern(regexp = "^[0-9]*$", message = "El saldo pendiente debe contener numeros del 1 al 9")
     private double saldoPendiente;
+
 
 
     // Costo total de la factura.

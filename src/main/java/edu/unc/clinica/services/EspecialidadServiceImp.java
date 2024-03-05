@@ -28,11 +28,10 @@ import edu.unc.clinica.repositories.MedicoRepository;
 @Service
 public class EspecialidadServiceImp  implements EspecialidadService{
 
-	/** The Esp R. */
+
 	@Autowired
 	EspecialidadRepository EspR;
-	
-	/** The medico R. */
+
 	@Autowired
 	MedicoRepository medicoR;
 	
@@ -74,9 +73,7 @@ public class EspecialidadServiceImp  implements EspecialidadService{
 	@Override
 	@Transactional
 	public Especialidad grabarEspecilidad(Especialidad espec) throws IllegalOperationException {
-		if(EspR.findById(espec.getIdEspecialidad())!=null) {
-			throw new IllegalOperationException("La especialidad con el id requerido ya existe.");
-		}
+		
 		return EspR.save(espec);
 	}
 
