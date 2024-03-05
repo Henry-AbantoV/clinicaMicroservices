@@ -30,10 +30,7 @@ import lombok.Data;
 //Anotación de Lombok que agrega automáticamente los métodos getter, setter, equals, hashCode y toString
 @Data
 public class Especialidad {
-<<<<<<< HEAD
-	
-=======
->>>>>>> 5a45278ea137551ce211d440fce8777cd3988110
+
 
 	// Identificador único generado automáticamente para la especialidad
 	@Id

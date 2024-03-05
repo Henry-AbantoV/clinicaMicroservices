@@ -122,10 +122,10 @@ public class CitaServiceImp implements CitaService {
 	public Cita asignarFactura(Long IdCita, Long IdFactura) throws EntityNotFoundException, IllegalOperationException {
 		try {
 		Factura FacturaEntity =  facturaR.findById(IdFactura).orElseThrow(
-				()->new EntityNotFoundException(ErrorMessage.FACTURA_NOT_FOUND)
+				()->new EntityNotFoundException("La factura con este id proporcionado no existe en la BD")
 				);
 		Cita citaEntity = citaR.findById(IdCita).orElseThrow(
-				()->new EntityNotFoundException(ErrorMessage.CITA_NOT_FOUND)
+				()->new EntityNotFoundException("La cita con este id proporcionado no existe en la BD")
 				);
 		if (citaEntity.getFactura()== null) {
 			citaEntity.setFactura(FacturaEntity);
