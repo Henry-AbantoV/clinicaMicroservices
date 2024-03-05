@@ -1,7 +1,7 @@
 /*
  * @file EspecialidadServiceImp.java;
- * @Autor Henry AV (c)2024
- * @Created 5 mar 2024,0:12:33
+ * @Autor Fernando C.J. (c)2024
+ * @Created 5 mar. 2024,01:34:16
  */
 package edu.unc.clinica.services;
 
@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.unc.clinica.domain.Cita;
 import edu.unc.clinica.domain.Especialidad;
-import edu.unc.clinica.domain.Factura;
 import edu.unc.clinica.domain.Medico;
 import edu.unc.clinica.exceptions.EntityNotFoundException;
 import edu.unc.clinica.exceptions.ErrorMessage;
@@ -104,7 +102,6 @@ public class EspecialidadServiceImp  implements EspecialidadService{
 		EspR.deleteById(IdEsp);
 		
 	}
-	
 	
 	 /**
      * Método para asignar médicos a una especialidad médica.
