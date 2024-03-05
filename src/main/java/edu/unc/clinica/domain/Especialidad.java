@@ -1,3 +1,8 @@
+/*
+ * @file Especialidad.java;
+ * @Autor Daniela Torres (c)2024
+ * @Created 5 mar 2024,0:31:12
+ */
 package edu.unc.clinica.domain;
 
 //Importa las clases necesarias
@@ -18,6 +23,8 @@ import lombok.Data;
 @Entity
 @Data
 public class Especialidad {
+	
+	/** The id especialidad. */
 	// Identificador único generado automáticamente para la especialidad
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +40,5 @@ public class Especialidad {
 	// Relación uno a muchos con la clase Medico, mapeada por el campo "especialidad" en la clase Medico
 	@OneToMany(mappedBy="especialidad")
 	private List<Medico> medicos=new ArrayList<>();
-	// Constructor por defecto
-	// (Lombok genera automáticamente el constructor con todos los parámetros)
+	
 }
