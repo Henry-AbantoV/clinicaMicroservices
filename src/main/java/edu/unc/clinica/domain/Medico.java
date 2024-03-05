@@ -47,6 +47,6 @@ public class Medico {
 	private List<Paciente>pacientes= new ArrayList<>(); 
 	
 	@ManyToOne
-    @JoinColumn(name="id_Medico")
+    @JoinColumn(name="medicos")
    	private Especialidad especialidad;
 }
