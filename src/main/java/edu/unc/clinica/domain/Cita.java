@@ -23,8 +23,6 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * La clase Cita representa una cita médica en el sistema.
  * Esta clase está marcada con la anotación @Entity para indicar que es una entidad de base de datos.

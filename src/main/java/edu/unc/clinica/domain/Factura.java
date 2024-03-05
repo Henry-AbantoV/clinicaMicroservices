@@ -1,8 +1,3 @@
-/*
- * @file Factura.java;
- * @Autor Daniela Torres (c)2024
- * @Created 5 mar 2024,0:31:47
- */
 package edu.unc.clinica.domain;
 
 import java.util.ArrayList;
@@ -27,21 +22,21 @@ import lombok.Data;
 
 // TODO: Auto-generated Javadoc
 /**
- * La clase Factura representa una factura en el sistema.
- * Esta clase está marcada con la anotación @Entity para indicar que es una entidad de base de datos.
- * También utiliza las anotaciones Lombok @Data para generar automáticamente los métodos getter, setter, toString, equals y hashCode.
+ * La clase Factura representa una factura en el sistema. Esta clase está
+ * marcada con la anotación @Entity para indicar que es una entidad de base de
+ * datos. También utiliza las anotaciones Lombok @Data para generar
+ * automáticamente los métodos getter, setter, toString, equals y hashCode.
  */
 
 @Entity
 @Data
-
 public class Factura {
 
 	/** The id factura. */
 	// Identificador único de la factura.
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idFactura;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idFactura;
 
     /** The fecha emision. */
     // Fecha de emisión de la factura.
@@ -55,7 +50,6 @@ public class Factura {
     @NotBlank(message = "Descripcion de la factura no puede estar vacío.")
     private String descripServicios;
 
-    /** The pago realizados. */
     // Detalles de los pagos realizados.
     @NotBlank(message = "El pago realizado no puede estar vacío.")
     private String pagoRealizados;
@@ -74,8 +68,7 @@ public class Factura {
     @Pattern(regexp = "^[0-9]*$", message = "El costo debe contener numeros del 1 al 9")
     private double costo;
     
-    
-    /** The citas. */
-    @OneToMany(mappedBy="factura", cascade = CascadeType.ALL)
-	private List<Cita> citas=new ArrayList<>();
+	// Relación uno a muchos con la clase Cita, mapeada por el campo "factura" en la clase Cita.
+	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
+	private List<Cita> citas = new ArrayList<>();
 }

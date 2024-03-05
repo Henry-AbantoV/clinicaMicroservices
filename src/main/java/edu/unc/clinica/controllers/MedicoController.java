@@ -1,3 +1,8 @@
+/*
+ * @file MedicoController.java;
+ * @Autor YerssonC.D (c)2024
+ * @Created 5 mar 2024,0:35:03
+ */
 package edu.unc.clinica.controllers;
 
 import java.util.HashMap;
