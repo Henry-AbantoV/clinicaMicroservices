@@ -3,10 +3,8 @@ package edu.unc.clinica.exceptions;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -46,18 +44,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
    
-    /**
-     * Maneja excepciones generales.
-     *
-     * @param ex       La excepción general lanzada.
-     * @param request  La solicitud web en la que se produjo la excepción.
-     * @return         Una respuesta de entidad que contiene un mensaje de error genérico y el estado HTTP correspondiente.
-     */
-    public ResponseEntity<ErrorMessage> globalExceptionHandler(Exception ex, WebRequest request) {
-        ErrorMessage message = new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex) {
         Map<String, String> errores = new HashMap<>();
@@ -67,4 +53,5 @@ public class GlobalExceptionHandler {
         ApiResponse<Object> response = new ApiResponse<>(false, "Error de validación", errores);
         return ResponseEntity.badRequest().body(response);
     }
+
 }

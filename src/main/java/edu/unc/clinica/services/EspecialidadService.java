@@ -1,8 +1,9 @@
 /*
  * @file EspecialidadService.java;
- * @Autor Henry AV (c)2024
- * @Created 5 mar 2024,0:04:07
+ * @Autor Fernando C.J. (c)2024
+ * @Created 5 mar. 2024,01:36:16
  */
+
 package edu.unc.clinica.services;
 
 import java.util.List;
@@ -11,7 +12,6 @@ import edu.unc.clinica.domain.Cita;
 import edu.unc.clinica.domain.Especialidad;
 import edu.unc.clinica.exceptions.EntityNotFoundException;
 import edu.unc.clinica.exceptions.IllegalOperationException;
-
 
 /**
  * Interfaz que define los servicios relacionados con las especialidades médicas.

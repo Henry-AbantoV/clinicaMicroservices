@@ -1,8 +1,9 @@
 /*
  * @file EspecialidadController.java;
- * @Autor Daniela Torres (c)2024
- * @Created 5 mar 2024,0:19:25
- */
+ * @Autor Fernando C.J. (c)2024
+ * @Created 5 mar. 2024,01:43:26
+ */
+
 package edu.unc.clinica.controllers;
 
 import java.util.HashMap;

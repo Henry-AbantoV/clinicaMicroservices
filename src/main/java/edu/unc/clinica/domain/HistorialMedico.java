@@ -3,7 +3,10 @@
  * @Autor Henry AV (c)2024
  * @Created 5 mar 2024,0:36:03
  */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5a45278ea137551ce211d440fce8777cd3988110
 package edu.unc.clinica.domain;
 
 import java.util.Date;
@@ -31,7 +34,6 @@ import lombok.Data;
 // TODO: Auto-generated Javadoc
 /**
  * The Class HistorialMedico.
->>>>>>> f9521bda1cf2a7f3117bc212851ba9974dd6d196
  */
 @Entity
 @Data

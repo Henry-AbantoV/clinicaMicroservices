@@ -20,7 +20,6 @@ import edu.unc.clinica.exceptions.IllegalOperationException;
 import edu.unc.clinica.repositories.MedicoRepository;
 import edu.unc.clinica.repositories.PacienteRepository;
 
-
 @Service
 public class MedicoServiceImp implements MedicoService {
 
