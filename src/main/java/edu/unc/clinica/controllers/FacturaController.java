@@ -31,7 +31,9 @@ import edu.unc.clinica.services.CitaService;
 import edu.unc.clinica.services.FacturaService;
 import edu.unc.clinica.util.ApiResponse;
 
-
+/**
+ * Controlador REST que maneja las operaciones relacionadas con las facturas
+ */
 @RestController
 @RequestMapping(value="api/v1/facturas", headers = "Api-Version=1")
 public class FacturaController {
