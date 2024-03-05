@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.unc.clinica.domain.HistorialMedico;
+import edu.unc.clinica.domain.Paciente;
 import edu.unc.clinica.dto.HistorialDTO;
 import edu.unc.clinica.exceptions.EntityNotFoundException;
 import edu.unc.clinica.exceptions.IllegalOperationException;
@@ -98,6 +99,13 @@ public class HistorialMedicoController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
+	@PutMapping(value = "/{idHistorial}/{idPaciente}")
+	public ResponseEntity<?> asignarHistorial(@PathVariable Long idHistorial, @PathVariable Long idPaciente)
+			throws EntityNotFoundException, IllegalOperationException {
+		HistorialMedico historial = historialS.asignarHistorial(idHistorial, idPaciente);
+		return ResponseEntity.ok(historial);
+
+	}
 	private ResponseEntity<Map<String, String>> validar(BindingResult result) {
 		Map<String, String> errores = new HashMap<>();
 		result.getFieldErrors().forEach(err -> {

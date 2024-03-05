@@ -13,4 +13,6 @@ public interface HistorialService {
 	HistorialMedico grabarHistorial(HistorialMedico historial)throws IllegalOperationException;
 	HistorialMedico actualizarHistorial(Long idHistorial, HistorialMedico historial) throws EntityNotFoundException, IllegalOperationException;
 	void eliminarHistorial(Long idHistorial) throws EntityNotFoundException, IllegalOperationException;
+	
+	HistorialMedico asignarHistorial(Long idHistorial,Long idPaciente) throws EntityNotFoundException, IllegalOperationException;
 }

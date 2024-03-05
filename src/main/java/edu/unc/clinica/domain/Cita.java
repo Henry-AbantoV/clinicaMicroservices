@@ -33,9 +33,9 @@ import lombok.Data;
  */
 @Entity
 @Data
-/*@JsonIdentityInfo(
+@JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "idCita")*/
+        property = "idCita")
 public class Cita {
 
 	// Identificador único de la cita.

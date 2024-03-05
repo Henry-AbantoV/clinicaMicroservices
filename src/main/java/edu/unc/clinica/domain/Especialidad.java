@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +26,8 @@ public class Especialidad {
 	@NotBlank(message = "El nombre de la especialidad no puede estar vacío.")
 	private String nombreEsp;
 	
-	@OneToMany(mappedBy="especialidad", cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(mappedBy="especialidad")
 	private List<Medico> medicos=new ArrayList<>();
 
 }

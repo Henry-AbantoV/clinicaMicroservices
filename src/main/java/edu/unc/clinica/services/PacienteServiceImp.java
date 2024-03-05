@@ -87,28 +87,6 @@ public class PacienteServiceImp implements PacienteService{
 		    }
 	
 	}
-	
-	@Override
-	@Transactional
-	public Paciente asignarHistorial(Long idPaciente, Long idHistorial) throws EntityNotFoundException, IllegalOperationException {
 
-		try {
-			Paciente pacienteEntity =  pacientR.findById(idPaciente).orElseThrow(
-					()->new EntityNotFoundException(ErrorMessage.PACIENTE_NOT_FOUND)
-					);
-			HistorialMedico histEntity = histoR.findById(idHistorial).orElseThrow(
-					()->new EntityNotFoundException(ErrorMessage.HISTORIAL_MEDICO_NOT_FOUND)
-					);
-			if (pacienteEntity.getHistorialMedico()== null) {
-				pacienteEntity.setHistorialMedico(histEntity);
-				return pacientR.save(pacienteEntity);
-	        } else {
-	            throw new IllegalOperationException("El paciente ya tiene asignado un historial");
-	        }
-			}catch (Exception e) {
-		        throw new IllegalOperationException("Error durante la asignación de historial");
-		    }
-	
-	}
 
 }

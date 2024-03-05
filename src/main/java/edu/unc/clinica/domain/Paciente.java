@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -95,7 +95,7 @@ public class Paciente {
 		  inverseJoinColumns = @JoinColumn(name = "paciente_id"))
    private List<Medico> medicos = new ArrayList<>();    
     
-   
+   @JsonIgnore
     @OneToOne(mappedBy="paciente")
     private HistorialMedico historialMedico;
     

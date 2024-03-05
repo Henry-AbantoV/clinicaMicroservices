@@ -17,5 +17,4 @@ public interface PacienteService {
 	void eliminarPaciente(Long idPaciente) throws EntityNotFoundException, IllegalOperationException;
 	Paciente asignarCita(Long idPaciente, Long IdCita) throws EntityNotFoundException, IllegalOperationException;
 	
-	Paciente asignarHistorial(Long idPaciente, Long idHistorial)  throws EntityNotFoundException, IllegalOperationException;
 }

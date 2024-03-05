@@ -105,7 +105,7 @@ public class CitaController {
 	  
 	    
 	    @PutMapping("/{id}")
-	    public ResponseEntity<ApiResponse<CitaDTO>> actualizarCita(@Valid @RequestBody CitaDTO citaDto, BindingResult result, @PathVariable Long id) throws EntityNotFoundException, IllegalOperationException {
+	    public ResponseEntity<ApiResponse<CitaDTO>> actualizarCita(@RequestBody CitaDTO citaDto, @PathVariable Long id) throws EntityNotFoundException, IllegalOperationException {
 	      
 	    	
 	    	    Cita citaActualizada = modelMapper.map(citaDto, Cita.class);
@@ -134,10 +134,8 @@ public class CitaController {
 	    }
 	    
 	    @PutMapping(value = "/{IdCita}/{IdFactura}")
-	    public ResponseEntity<?> asignarFactura (@Valid @PathVariable Long IdCita, BindingResult result, @PathVariable Long IdFactura) throws EntityNotFoundException, IllegalOperationException{ 	
-	    	if(result.hasErrors()) {
-	        	return validar(result);
-	        }
+	    public ResponseEntity<?> asignarFactura (@PathVariable Long IdCita, @PathVariable Long IdFactura) throws EntityNotFoundException, IllegalOperationException{ 	
+	 
 	    	
 	    	Cita cita = citaS.asignarFactura(IdCita, IdFactura);
 	            return ResponseEntity.ok(cita);   		

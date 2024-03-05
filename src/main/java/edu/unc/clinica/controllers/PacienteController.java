@@ -109,14 +109,6 @@ public class PacienteController {
 
 	}
 
-	@PutMapping(value = "/ph/{idPaciente}/{idHistorial}")
-	public ResponseEntity<?> asignarHistorial(@PathVariable Long idPaciente, @PathVariable Long idHistorial)
-			throws EntityNotFoundException, IllegalOperationException {
-		Paciente paciente = pacienteS.asignarHistorial(idPaciente, idHistorial);
-		return ResponseEntity.ok(paciente);
-
-	}
-
 	private ResponseEntity<Map<String, String>> validar(BindingResult result) {
 		Map<String, String> errores = new HashMap<>();
 		result.getFieldErrors().forEach(err -> {

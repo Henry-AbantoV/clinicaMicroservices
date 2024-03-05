@@ -82,13 +82,13 @@ public class EspecialidadController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ApiResponse<EspecialidadDTO>> actualizarEspecialidad(@Valid @RequestBody CitaDTO citaDto,
+	public ResponseEntity<ApiResponse<EspecialidadDTO>> actualizarEspecialidad(@Valid @RequestBody EspecialidadDTO espDto,
 			BindingResult result, @PathVariable Long id) throws EntityNotFoundException, IllegalOperationException {
 
-		Especialidad espActualizada = modelMapper.map(citaDto, Especialidad.class);
+		Especialidad espActualizada = modelMapper.map(espDto, Especialidad.class);
 		especS.actualizarEspecilidad(id, espActualizada);
 		EspecialidadDTO updateEsp = modelMapper.map(espActualizada, EspecialidadDTO.class);
-		ApiResponse<EspecialidadDTO> response = new ApiResponse<>(true, "Cita actualizada", updateEsp);
+		ApiResponse<EspecialidadDTO> response = new ApiResponse<>(true, "Especialidad actualizada", updateEsp);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 
