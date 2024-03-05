@@ -31,7 +31,6 @@ import lombok.Data;
 // TODO: Auto-generated Javadoc
 /**
  * The Class HistorialMedico.
->>>>>>> f9521bda1cf2a7f3117bc212851ba9974dd6d196
  */
 @Entity
 @Data
