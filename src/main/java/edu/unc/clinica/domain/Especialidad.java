@@ -1,3 +1,4 @@
+
 /*
  * @file Especialidad.java;
 * @Autor Fernando C.J. (c)2024
@@ -6,7 +7,6 @@
 
 package edu.unc.clinica.domain;
 
-//Importa las clases necesarias
 import java.util.ArrayList;
 import java.util.List;
 

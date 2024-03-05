@@ -1,8 +1,9 @@
 /*
  * @file HistorialMedico.java;
- * @Autor Daniela Torres (c)2024
- * @Created 5 mar 2024,0:32:56
- */
+<<<<<<< HEAD
+ * @Autor Henry AV (c)2024
+ * @Created 5 mar 2024,0:36:03
+ */
 package edu.unc.clinica.domain;
 
 import java.util.Date;
@@ -19,10 +20,18 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
+//TODO: Auto-generated Javadoc
+/**
+ * La clase Historial Medico representa un historial medico en el sistema. Esta clase está
+ * marcada con la anotación @Entity para indicar que es una entidad de base de
+ * datos. También utiliza las anotaciones Lombok @Data para generar
+ * automáticamente los métodos getter, setter, toString, equals y hashCode.
+=======
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class HistorialMedico.
+>>>>>>> f9521bda1cf2a7f3117bc212851ba9974dd6d196
  */
 @Entity
 @Data
