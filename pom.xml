@@ -31,6 +31,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+			</dependency>
+		</dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -83,7 +89,7 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.0.2.Final</version>
 		</dependency>
-		
+
 		<!-- Hibernate Validator CDI: Integración con Contexts and Dependency
 		Injection (Opcional) -->
 		<dependency>
