@@ -13,5 +13,7 @@ public interface MedicoService {
 	Medico grabarMedico(Medico medico)throws IllegalOperationException;
 	Medico actualizarMedico(Long id, Medico medico) throws EntityNotFoundException, IllegalOperationException;
 	void eliminarMedico(Long IdMedico) throws EntityNotFoundException, IllegalOperationException;
-	Medico asignarPaciente(Long idMedico, Long idPaciente)throws EntityNotFoundException, IllegalOperationException;	
+	Medico asignarPaciente(Long idMedico, Long idPaciente) throws EntityNotFoundException, IllegalOperationException;	
+	
+	Medico asignarJefe(Long idMedico, Long IdMedJefe) throws EntityNotFoundException, IllegalOperationException;
 }

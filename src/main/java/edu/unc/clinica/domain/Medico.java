@@ -12,6 +12,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -61,11 +66,17 @@ public class Medico {
 	private String correoElectronico;
 
 	// Relación muchos a muchos con la clase Paciente, mapeada por el campo "medicos" en la clase Paciente.
-	@ManyToMany(mappedBy="medicos")
+	 @ManyToMany
 	private List<Paciente>pacientes= new ArrayList<>(); 
 	
 	// Relación muchos a uno con la clase Especialidad, mapeada por el campo "medicos" en la clase Especialidad.
 	@ManyToOne
     @JoinColumn(name="medicos")
    	private Especialidad especialidad;
+	
+	//Relacion entre medico jefe
+	@ManyToOne
+	@JoinColumn(name = "id_jefe")
+    @JsonIdentityReference(alwaysAsId = true)
+	private Medico jefe;
 }

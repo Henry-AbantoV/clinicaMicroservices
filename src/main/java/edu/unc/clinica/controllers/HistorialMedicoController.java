@@ -130,7 +130,7 @@ public class HistorialMedicoController {
 		HistorialMedico historialActualizado = modelMapper.map(historialDto, HistorialMedico.class);
 		historialS.actualizarHistorial(id, historialActualizado);
 		HistorialDTO updateHistorial = modelMapper.map(historialActualizado, HistorialDTO.class);
-		ApiResponse<HistorialDTO> response = new ApiResponse<>(true, "Factura actualizada", updateHistorial);
+		ApiResponse<HistorialDTO> response = new ApiResponse<>(true, "Historial actualizada", updateHistorial);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

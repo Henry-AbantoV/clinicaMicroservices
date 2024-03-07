@@ -19,6 +19,7 @@ import edu.unc.clinica.exceptions.ErrorMessage;
 import edu.unc.clinica.exceptions.IllegalOperationException;
 import edu.unc.clinica.repositories.MedicoRepository;
 import edu.unc.clinica.repositories.PacienteRepository;
+import jakarta.persistence.PersistenceException;
 
 @Service
 public class MedicoServiceImp implements MedicoService {
@@ -45,6 +46,7 @@ public class MedicoServiceImp implements MedicoService {
 		if (medico.isEmpty())
 			throw new EntityNotFoundException("El medico con el id proporcionado no existe en la BD");
 		return medico.get();
+		
 
 	}
 
@@ -77,23 +79,46 @@ public class MedicoServiceImp implements MedicoService {
 		medicoRep.deleteById(IdMedico);
 	}
 
+	@Override
+	@Transactional
 	public Medico asignarPaciente(Long idMedico, Long idPaciente)
 			throws EntityNotFoundException, IllegalOperationException {
-		Medico medicoEntity = medicoRep.findById(idMedico)
-				.orElseThrow(() -> new EntityNotFoundException("Medico no encontrado con ID: " + idMedico));
+		 try {
+		        Medico medicoEntity = medicoRep.findById(idMedico)
+		                .orElseThrow(() -> new EntityNotFoundException("Medico no encontrado con ID: " + idMedico));
 
-		Paciente paciente = pacienteRep.findById(idPaciente)
-				.orElseThrow(() -> new EntityNotFoundException("Paciente no encontrado con ID: " + idPaciente));
+		        Paciente paciente = pacienteRep.findById(idPaciente)
+		                .orElseThrow(() -> new EntityNotFoundException("Paciente no encontrado con ID: " + idPaciente));
 
+		        if (!medicoEntity.getPacientes().contains(paciente)) {
+		            medicoEntity.getPacientes().add(paciente); 
+		            return medicoRep.save(medicoEntity); 
+		        } else {
+		            throw new IllegalOperationException("Este paciente ya está asignado a este médico");
+		        }
+		    } catch (Exception e) {
+		        // Manejar cualquier excepción de persistencia aquí
+		        // Por ejemplo, puedes lanzar una excepción personalizada, hacer un registro de error, etc.
+		        throw new PersistenceException("Error al asignar paciente al médico", e);
+		    }
+	}
 	
-		if (!medicoEntity.getPacientes().contains(paciente)) {
-			medicoEntity.getPacientes().add(paciente); 
-			medicoRep.save(medicoEntity); 
-		} else {
-			throw new IllegalOperationException("Este paciente ya esta asignado a este medico");
-		}
+	@Override
+	@Transactional
+	public Medico asignarJefe(Long idMedico, Long IdMedJefe) throws EntityNotFoundException, IllegalOperationException{
+		
+		 Medico medico = medicoRep.findById(idMedico)
+	                .orElseThrow(() -> new EntityNotFoundException("El medico con este Id no se ha encontrado"));
 
-		return medicoEntity;
+		 Medico jefe = medicoRep.findById(IdMedJefe)
+	                .orElseThrow(() -> new EntityNotFoundException("El medico jefe no se ha encontrado"));
+
+	        if (medico.equals(jefe)) {
+	            throw new IllegalOperationException("Un medico no puede supervisarse a sí mismo");
+	        }
+
+	        medico.setJefe(jefe);
+	        return medicoRep.save(medico);
 	}
 
 }

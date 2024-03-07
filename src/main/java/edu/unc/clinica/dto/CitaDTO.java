@@ -7,6 +7,8 @@ package edu.unc.clinica.dto;
 
 import java.util.Date;
 
+
+
 import edu.unc.clinica.domain.Factura;
 import lombok.Data;
 
@@ -16,6 +18,7 @@ public class CitaDTO {
 	 
  	// Campo para almacenar el identificador único de la cita
 	private Long idCita;
+	
 	// Campo para almacenar la fecha y hora de la cita
     private Date fechaHoraCita;
     

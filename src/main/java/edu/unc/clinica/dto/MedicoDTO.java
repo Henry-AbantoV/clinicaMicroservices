@@ -5,7 +5,12 @@
  */
 package edu.unc.clinica.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.unc.clinica.domain.Especialidad;
+import edu.unc.clinica.domain.Medico;
+import edu.unc.clinica.domain.Paciente;
 import lombok.Data;
 /**
  * Clase que representa un DTO (Objeto de Transferencia de Datos) para un médico.
@@ -50,4 +55,12 @@ public class MedicoDTO {
      * La especialidad a la que pertenece el médico.
      */
 	private Especialidad especialidad;
+	
+
+	 /**
+    * Relacion recursiva entre un medico y su jefe
+    */
+	private Medico jefe;
+	
+	private List<Paciente>pacientes= new ArrayList<Paciente>(); 
 }

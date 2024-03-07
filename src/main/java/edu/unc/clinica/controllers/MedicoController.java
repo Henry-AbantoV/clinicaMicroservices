@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -156,6 +157,24 @@ public class MedicoController {
 		return ResponseEntity.ok(cita);
 
 	}
+	
+	/**
+	 * Método para asignar un jefe a un médico.
+	 *
+	 * @param idMedico  ID del médico al que se le asignará un jefe.
+	 * @param IdMedJefe ID del médico que será asignado como jefe.
+	 * @return ResponseEntity con el objeto DTO del médico actualizado y un mensaje de éxito.
+	 * @throws EntityNotFoundException    Si no se encuentra el médico con el ID especificado.
+	 * @throws IllegalOperationException Si se produce una operación ilegal al intentar asignar el jefe al médico.
+	 */
+	@PatchMapping("/{idMedico}/asignarJefe/{IdMedJefe}")
+    public ResponseEntity<?> asignarJefe(@PathVariable Long idMedico, @PathVariable Long IdMedJefe) throws EntityNotFoundException, IllegalOperationException {
+        Medico medico = medicoServ.asignarJefe(idMedico, IdMedJefe);
+        MedicoDTO medicoDTO = modelMapper.map(medico, MedicoDTO.class);
+        ApiResponse<MedicoDTO> response = new ApiResponse<>(true, "A un medico se le asigno un jefe correctamente", medicoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+	
 	/**
 	 * Método privado utilizado para validar los campos de entrada cuando se crea o actualiza una entidad.
 	 * Este método se invoca dentro de los endpoints POST y PUT para verificar si existen errores en los datos
@@ -172,4 +191,5 @@ public class MedicoController {
         });
         return ResponseEntity.badRequest().body(errores);
     }
+	
 }

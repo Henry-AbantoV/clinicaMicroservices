@@ -90,7 +90,7 @@ public class CitaController {
 	 
 	    @PostMapping
 	    public ResponseEntity<?> guardarCita(@Valid @RequestBody Cita citaDto, BindingResult result) throws IllegalOperationException  {
-	        
+	        //citadto clase 
 	    	if(result.hasErrors()) {
 				return validar(result);
 			}

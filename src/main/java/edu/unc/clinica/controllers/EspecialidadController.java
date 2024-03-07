@@ -65,7 +65,7 @@ public class EspecialidadController {
 		} else {
 			List<EspecialidadDTO> espDto = especialidad.stream()
 					.map(espec -> modelMapper.map(espec, EspecialidadDTO.class)).collect(Collectors.toList());
-			ApiResponse<List<EspecialidadDTO>> response = new ApiResponse<>(true, "Lista de citas", espDto);
+			ApiResponse<List<EspecialidadDTO>> response = new ApiResponse<>(true, "Lista de Especialidades", espDto);
 			return ResponseEntity.ok(response);
 		}
 	}
@@ -84,7 +84,7 @@ public class EspecialidadController {
 		Especialidad especialidad = especS.buscarEspecialidadbyId(id);
 
 		EspecialidadDTO especialidadDto = modelMapper.map(especialidad, EspecialidadDTO.class);
-		ApiResponse<EspecialidadDTO> response = new ApiResponse<>(true, "Lista de facturas", especialidadDto);
+		ApiResponse<EspecialidadDTO> response = new ApiResponse<>(true, "Lista de Especialidades", especialidadDto);
 		return ResponseEntity.ok(response);
 	}
 	
@@ -107,7 +107,7 @@ public class EspecialidadController {
 		Especialidad nuevaEsp = modelMapper.map(especDto, Especialidad.class);
 		especS.grabarEspecilidad(nuevaEsp);
 		EspecialidadDTO saveEspDto = modelMapper.map(nuevaEsp, EspecialidadDTO.class);
-		ApiResponse<EspecialidadDTO> response = new ApiResponse<>(true, "Cita guardada", saveEspDto);
+		ApiResponse<EspecialidadDTO> response = new ApiResponse<>(true, "Especialidad guardada", saveEspDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
